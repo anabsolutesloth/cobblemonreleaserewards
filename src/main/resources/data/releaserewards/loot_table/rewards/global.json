@@ -1,0 +1,130 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "xp_candy",
+      "entries": [
+        {
+          "type": "empty",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "weight": 4,
+          "name": "cobblemon:exp_candy_xs",
+          "conditions": [
+            {
+              "condition": "releaserewards:level_range",
+              "range": {
+                "min": 1,
+                "max": 20
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "name": "cobblemon:exp_candy_s",
+          "conditions": [
+            {
+              "condition": "releaserewards:level_range",
+              "range": {
+                "min": 16,
+                "max": 35
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "name": "cobblemon:exp_candy_m",
+          "conditions": [
+            {
+              "condition": "releaserewards:level_range",
+              "range": {
+                "min": 31,
+                "max": 50
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "cobblemon:exp_candy_l",
+          "conditions": [
+            {
+              "condition": "releaserewards:level_range",
+              "range": {
+                "min": 46,
+                "max": 75
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+
+          "type": "item",
+          "weight": 2,
+          "name": "cobblemon:exp_candy_xl",
+          "conditions": [
+            {
+              "condition": "releaserewards:level_range",
+              "range": {
+                "min": 71,
+                "max": 100
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

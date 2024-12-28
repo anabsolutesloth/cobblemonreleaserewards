@@ -2,6 +2,7 @@ plugins {
     id 'java-library'
     id 'maven-publish'
     id 'net.neoforged.moddev' version '1.0.21'
+    id 'org.jetbrains.kotlin.jvm' version '2.0.21'
 }
 
 tasks.named('wrapper', Wrapper).configure {
@@ -18,6 +19,20 @@ group = mod_group_id
 
 repositories {
     mavenLocal()
+    maven { url = 'https://maven.impactdev.net/repository/development/'}
+    maven { url = 'https://thedarkcolour.github.io/KotlinForForge/' }
+    maven { url = 'https://maven.neoforged.net/releases' }
+    maven { // location of the maven that hosts JEI files since January 2023
+        name = "Jared's maven"
+        url = "https://maven.blamejared.com/"
+    }
+    maven { // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    flatDir {
+        dirs("libs")
+    }
 }
 
 base {
@@ -94,7 +109,7 @@ neoForge {
         // these are used to tell the game which sources are for which mod
         // mostly optional in a single mod project
         // but multi mod projects should define one per mod
-        "${mod_id}" {
+        "releaserewards" {
             sourceSet(sourceSets.main)
         }
     }
@@ -133,6 +148,12 @@ dependencies {
     // For more info:
     // http://www.gradle.org/docs/current/userguide/artifact_dependencies_tutorial.html
     // http://www.gradle.org/docs/current/userguide/dependency_management.html
+
+    //compileOnly "com.cobblemon:mod:${cobblemon_version}"
+    implementation "com.cobblemon:neoforge:${cobblemon_version}"
+
+    implementation "thedarkcolour:kotlinforforge-neoforge:${kff_version}"
+    localRuntime "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
@@ -149,7 +170,12 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             mod_license            : mod_license,
             mod_version            : mod_version,
             mod_authors            : mod_authors,
-            mod_description        : mod_description
+            mod_description        : mod_description,
+            cobblemon_version      : cobblemon_version,
+            cobblemon_version_range: cobblemon_version_range,
+            kff_version            : kff_version,
+            kff_version_range      : kff_version_range,
+            jei_version            : jei_version
     ]
     inputs.properties replaceProperties
     expand replaceProperties
