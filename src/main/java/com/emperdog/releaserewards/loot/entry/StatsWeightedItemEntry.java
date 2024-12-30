@@ -93,7 +93,6 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
 
     @Override
     protected void createItemStack(Consumer<ItemStack> consumer, LootContext context) {
-        ReleaseRewards.LOGGER.info("Generating stats_weighted ItemStack!");
         Pokemon pokemon = context.getParam(ModLootContextParams.POKEMON);
         Map<Stat, Integer> stats = ReleaseUtils.getStatSubset(subset, pokemon);
 
