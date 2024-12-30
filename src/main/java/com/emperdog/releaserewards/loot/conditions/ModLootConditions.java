@@ -14,6 +14,9 @@ public class ModLootConditions {
     public static final Supplier<LootItemConditionType> LEVEL_RANGE =
             LOOT_CONDITION_TYPES.register("level_range", () -> new LootItemConditionType(LevelRangeCondition.CODEC));
 
-    public static final Supplier<LootItemConditionType> POKEMON_LABELS =
+    public static final Supplier<LootItemConditionType> POKEMON_LABEL =
             LOOT_CONDITION_TYPES.register("pokemon_label", () -> new LootItemConditionType(PokemonLabelCondition.CODEC));
+
+    public static final Supplier<LootItemConditionType> POKEMON_FORM =
+            LOOT_CONDITION_TYPES.register("form", () -> new LootItemConditionType(PokemonFormCondition.CODEC));
 }

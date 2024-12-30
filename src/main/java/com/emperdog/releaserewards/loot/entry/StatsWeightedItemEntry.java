@@ -76,7 +76,6 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
             int weight = random.nextInt(totalWeight.intValue());
 
             for (EnumPokemonStats stat: options.keySet()) {
-                ReleaseRewards.LOGGER.info(Stats.Companion.getStat(stat.getSerializedName()).getShowdownId());
                 weight -= stats.get(Stats.Companion.getStat(stat.getSerializedName()));
                 if(weight < 0) {
                     return options.get(stat);
