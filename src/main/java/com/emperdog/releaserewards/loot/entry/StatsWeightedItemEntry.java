@@ -6,6 +6,7 @@ import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.emperdog.releaserewards.EnumPokemonStats;
 import com.emperdog.releaserewards.ReleaseRewards;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
+import com.emperdog.releaserewards.loot.ReleaseUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.Keyable;
 import com.mojang.serialization.MapCodec;
@@ -20,11 +21,9 @@ import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
 import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.mutable.MutableInt;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Consumer;
 
 public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
@@ -85,7 +84,7 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
             }
         }
 
-        ReleaseRewards.LOGGER.warn("StatsWeightedItemEntry '{}' was invalid, returning Empty Stack.", options.toString());
+        ReleaseRewards.LOGGER.warn("A StatsWeightedItemEntry '{}' was invalid, returning Empty Stack.", options.toString());
         return ItemStack.EMPTY;
     }
 
@@ -93,56 +92,17 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
         return options;
     }
 
-    public Map<Stat, Integer> getStatSubset(Pokemon pokemon) {
-        switch (subset) {
-            case "base":
-            case "bst":
-            case "base_stats":
-                return pokemon.getForm().getBaseStats();
-            case "effort_yield":
-            case "effort_value_yield":
-            case "ev_yield":
-                return new HashMap<Stat, Integer>(pokemon.getForm().getEvYield());
-            case "individual":
-            case "individual_values":
-            case "iv":
-            case "ivs":
-                HashMap<Stat, Integer> ivStore = new HashMap<>();
-                pokemon.getIvs().forEach((entry) -> ivStore.put(entry.getKey(), entry.getValue()));
-                return ivStore;
-            case "effort":
-            case "effort_values":
-            case "ev":
-            case "evs":
-                HashMap<Stat, Integer> evStore = new HashMap<>();
-                pokemon.getEvs().forEach((entry) -> evStore.put(entry.getKey(), entry.getValue() + 1));
-                return evStore;
-            case "raw":
-            case "actual":
-            case "final":
-                HashMap<Stat, Integer> statStore = new HashMap<>();
-                options.forEach((thisStat, stack) -> {
-                    Stat stat = Stats.valueOf(thisStat.name());
-                    statStore.put(stat, pokemon.getStat(stat));
-                });
-                return statStore;
-            default:
-                ReleaseRewards.LOGGER.warn("Stat Subset '{}' is invalid or Empty", subset);
-                return null;
-        }
-    }
-
     @Override
     protected void createItemStack(Consumer<ItemStack> consumer, LootContext context) {
         ReleaseRewards.LOGGER.info("Generating stats_weighted ItemStack!");
         Pokemon pokemon = context.getParam(ModLootContextParams.POKEMON);
-        Map<Stat, Integer> stats = getStatSubset(pokemon);
+        Map<Stat, Integer> stats = ReleaseUtils.getStatSubset(subset, pokemon);
 
-        consumer.accept(pickStatValueWeightedLoot(getOptions(), stats, context));
+        consumer.accept(pickStatValueWeightedLoot(options, stats, context));
     }
 
     @Override
-    public LootPoolEntryType getType() {
+    public @NotNull LootPoolEntryType getType() {
         return ModLootEntries.STATS_WEIGHTED.get();
     }
 }
