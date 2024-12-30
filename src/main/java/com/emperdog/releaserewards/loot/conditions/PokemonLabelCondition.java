@@ -28,13 +28,12 @@ public record PokemonLabelCondition(List<String> labels) implements LootItemCond
 
     @Override
     public boolean test(@NotNull LootContext context) {
-        boolean missingLabel = false;
         Pokemon pokemon = context.getParam(ModLootContextParams.POKEMON);
         for (String label : labels) {
-            if (!pokemon.hasLabels(label))
-                missingLabel = true;
+            if (pokemon.hasLabels(label))
+                return true;
         }
-        return !missingLabel;
+        return false;
     }
 
     @Override

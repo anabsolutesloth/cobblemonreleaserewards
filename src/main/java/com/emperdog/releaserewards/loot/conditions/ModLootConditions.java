@@ -12,8 +12,8 @@ public class ModLootConditions {
             DeferredRegister.create(Registries.LOOT_CONDITION_TYPE, ReleaseRewards.MODID);
 
     public static final Supplier<LootItemConditionType> LEVEL_RANGE =
-            LOOT_CONDITION_TYPES.register("level_range", () -> new LootItemConditionType(LevelRangeLootCondition.CODEC));
+            LOOT_CONDITION_TYPES.register("level_range", () -> new LootItemConditionType(LevelRangeCondition.CODEC));
 
     public static final Supplier<LootItemConditionType> POKEMON_LABELS =
-            LOOT_CONDITION_TYPES.register("pokemon_labels", () -> new LootItemConditionType(PokemonLabelCondition.CODEC));
+            LOOT_CONDITION_TYPES.register("pokemon_label", () -> new LootItemConditionType(PokemonLabelCondition.CODEC));
 }

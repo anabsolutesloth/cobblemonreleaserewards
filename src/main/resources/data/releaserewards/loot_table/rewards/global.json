@@ -125,6 +125,81 @@
           ]
         }
       ]
+    },
+    {
+      "rolls": {
+        "min": 1,
+        "max": 2
+      },
+      "name": "effort_items",
+      "entries": [
+        {
+          "type": "empty",
+          "weight": 4
+        },
+        {
+          "type": "releaserewards:stats_weighted",
+          "weight": 8,
+          "subset": "base",
+          "items": {
+            "hp": {"id": "cobblemon:health_feather"},
+            "atk": {"id": "cobblemon:muscle_feather"},
+            "def": {"id": "cobblemon:resist_feather"},
+            "spa": {"id": "cobblemon:genius_feather"},
+            "spd": {"id": "cobblemon:clever_feather"},
+            "spe": {"id": "cobblemon:swift_feather"}
+          },
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 2,
+                "max": 4
+              }
+            },
+            {
+              "function": "releaserewards:level_bonus",
+              "levels_per": 8
+            }
+          ]
+        },
+        {
+          "type": "releaserewards:stats_weighted",
+          "weight": 4,
+          "subset": "base",
+          "items": {
+            "hp": {"id": "cobblemon:hp_up"},
+            "atk": {"id": "cobblemon:protein"},
+            "def": {"id": "cobblemon:iron"},
+            "spa": {"id": "cobblemon:calcium"},
+            "spd": {"id": "cobblemon:zinc"},
+            "spe": {"id": "cobblemon:carbos"}
+          },
+          "conditions": [
+            {
+              "condition": "releaserewards:level_range",
+              "range": {
+                "min": 60,
+                "max": 100
+              }
+            }
+          ],
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            {
+              "function": "releaserewards:level_bonus",
+              "starting_at": 60,
+              "levels_per": 25
+            }
+          ]
+        }
+      ]
     }
   ]
 }

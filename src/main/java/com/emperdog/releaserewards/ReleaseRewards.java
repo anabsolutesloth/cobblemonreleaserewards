@@ -3,6 +3,8 @@ package com.emperdog.releaserewards;
 import com.cobblemon.mod.common.api.Priority;
 import com.cobblemon.mod.common.api.events.CobblemonEvents;
 import com.emperdog.releaserewards.loot.conditions.ModLootConditions;
+import com.emperdog.releaserewards.loot.entry.ModLootEntries;
+import com.emperdog.releaserewards.loot.modifiers.ModLootModifiers;
 import org.slf4j.Logger;
 
 import com.mojang.logging.LogUtils;
@@ -20,7 +22,7 @@ public class ReleaseRewards
     // Define mod id in a common place for everything to reference
     public static final String MODID = "releaserewards";
     // Directly reference a slf4j logger
-    private static final Logger LOGGER = LogUtils.getLogger();
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     // The constructor for the mod class is the first code that is run when your mod is loaded.
     // FML will recognize some parameter types like IEventBus or ModContainer and pass them in automatically.
@@ -35,6 +37,8 @@ public class ReleaseRewards
         //NeoForge.EVENT_BUS.register(this);
 
         ModLootConditions.LOOT_CONDITION_TYPES.register(modEventBus);
+        ModLootEntries.LOOT_POOL_ENTRY_TYPES.register(modEventBus);
+        ModLootModifiers.LOOT_FUNCTION_TYPES.register(modEventBus);
 
         // Register our mod's ModConfigSpec so that FML can create and load the config file for us
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);

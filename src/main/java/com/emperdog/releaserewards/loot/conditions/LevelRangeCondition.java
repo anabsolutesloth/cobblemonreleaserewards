@@ -14,12 +14,12 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 
-public record LevelRangeLootCondition(int min, int max) implements LootItemCondition {
+public record LevelRangeCondition(int min, int max) implements LootItemCondition {
 
-    public static final MapCodec<LevelRangeLootCondition> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            Codec.INT.fieldOf("min").fieldOf("range").forGetter(LevelRangeLootCondition::min),
-            Codec.INT.fieldOf("max").fieldOf("range").forGetter(LevelRangeLootCondition::max)
-    ).apply(inst, LevelRangeLootCondition::new));
+    public static final MapCodec<LevelRangeCondition> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
+            Codec.INT.fieldOf("min").fieldOf("range").forGetter(LevelRangeCondition::min),
+            Codec.INT.fieldOf("max").fieldOf("range").forGetter(LevelRangeCondition::max)
+    ).apply(inst, LevelRangeCondition::new));
 
     @Override
     public @NotNull LootItemConditionType getType() {
