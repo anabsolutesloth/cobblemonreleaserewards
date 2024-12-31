@@ -128,19 +128,6 @@
               }
             }
           ]
-        }
-      ]
-    },
-    {
-      "rolls": {
-        "min": 1,
-        "max": 2
-      },
-      "name": "effort_items",
-      "entries": [
-        {
-          "type": "empty",
-          "weight": 4
         },
         {
           "type": "releaserewards:stats_weighted",
