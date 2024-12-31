@@ -20,6 +20,9 @@ public class ModLootConditions {
     public static final Supplier<LootItemConditionType> POKEMON_FORM =
             LOOT_CONDITION_TYPES.register("form", () -> new LootItemConditionType(PokemonFormCondition.CODEC));
 
+    public static final Supplier<LootItemConditionType> MOVE_PREDICATE =
+            LOOT_CONDITION_TYPES.register("move_predicate", () -> new LootItemConditionType(MovePredicateCondition.CODEC));
+
     public static final Supplier<LootItemConditionType> POKEMON_GENDER =
             LOOT_CONDITION_TYPES.register("pokemon_gender", () -> new LootItemConditionType(PokemonGenderCondition.CODEC));
 
