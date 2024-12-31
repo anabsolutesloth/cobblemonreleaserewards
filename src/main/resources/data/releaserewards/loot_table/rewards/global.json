@@ -14,7 +14,8 @@
           "name": "cobblemon:exp_candy_xs",
           "conditions": [
             {
-              "condition": "releaserewards:level_range",
+              "condition": "releaserewards:value_range",
+              "value_type": "level",
               "range": {
                 "min": 1,
                 "max": 20
@@ -37,7 +38,8 @@
           "name": "cobblemon:exp_candy_s",
           "conditions": [
             {
-              "condition": "releaserewards:level_range",
+              "condition": "releaserewards:value_range",
+              "value_type": "level",
               "range": {
                 "min": 16,
                 "max": 35
@@ -60,7 +62,8 @@
           "name": "cobblemon:exp_candy_m",
           "conditions": [
             {
-              "condition": "releaserewards:level_range",
+              "condition": "releaserewards:value_range",
+              "value_type": "level",
               "range": {
                 "min": 31,
                 "max": 50
@@ -83,7 +86,8 @@
           "name": "cobblemon:exp_candy_l",
           "conditions": [
             {
-              "condition": "releaserewards:level_range",
+              "condition": "releaserewards:value_range",
+              "value_type": "level",
               "range": {
                 "min": 46,
                 "max": 75
@@ -107,7 +111,8 @@
           "name": "cobblemon:exp_candy_xl",
           "conditions": [
             {
-              "condition": "releaserewards:level_range",
+              "condition": "releaserewards:value_range",
+              "value_type": "level",
               "range": {
                 "min": 71,
                 "max": 100
@@ -177,7 +182,8 @@
           },
           "conditions": [
             {
-              "condition": "releaserewards:level_range",
+              "condition": "releaserewards:value_range",
+              "value_type": "level",
               "range": {
                 "min": 60,
                 "max": 100
