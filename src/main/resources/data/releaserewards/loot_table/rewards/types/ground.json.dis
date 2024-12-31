@@ -1,0 +1,27 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "move_predicate_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:sand",
+          "conditions": [
+            {
+              "condition": "releaserewards:move_predicate",
+              "move_template": {
+                "power": 89,
+                "accuracy": 94,
+                "category": "physical"
+              },
+              "power_calc": "greater",
+              "accuracy_calc": "greater"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
