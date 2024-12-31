@@ -25,7 +25,6 @@ public record PokemonGenderCondition(String gender) implements LootItemCondition
     @Override
     public boolean test(LootContext context) {
         Pokemon pokemon = context.getParam(ModLootContextParams.POKEMON);
-        ReleaseRewards.LOGGER.info("pokemon gender: {}, provided gender: {}", pokemon.getGender(), gender);
         return pokemon.getGender().equals(getGenderFromAlias(gender));
     }
 
@@ -35,7 +34,7 @@ public record PokemonGenderCondition(String gender) implements LootItemCondition
             case "f", "female" -> Gender.FEMALE;
             case "n", "none", "genderless" -> Gender.GENDERLESS;
             default -> {
-                ReleaseRewards.LOGGER.warn("pokemon_gender condition with Gender '{}' ", gender);
+                ReleaseRewards.LOGGER.warn("pokemon_gender condition with Gender '{}' does not reference a valid gender.", gender);
                 yield Gender.GENDERLESS;
             }
         };

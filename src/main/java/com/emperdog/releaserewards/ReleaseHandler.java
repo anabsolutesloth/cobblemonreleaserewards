@@ -38,9 +38,6 @@ public class ReleaseHandler {
         Level level = player.level();
         ReloadableServerRegistries.Holder reloadableRegistries = Objects.requireNonNull(player.getServer()).reloadableRegistries();
 
-        ReleaseRewards.LOGGER.info("providing Release Rewards to player '{}', who released '{}'!",
-                player.getName().getString(), pokemon.getSpecies().resourceIdentifier.toString());
-
         //get Global table
         LootTable globalTable = reloadableRegistries.getLootTable(globalRewardTable);
 

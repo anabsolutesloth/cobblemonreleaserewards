@@ -23,7 +23,7 @@ license="${mod_license}"
 modId="${mod_id}" #mandatory
 
 # The version number of the mod
-version="${mod_version}" #mandatory
+version="${minecraft_version}-${mod_version}" #mandatory
 
 # A display name for the mod
 displayName="${mod_name}" #mandatory

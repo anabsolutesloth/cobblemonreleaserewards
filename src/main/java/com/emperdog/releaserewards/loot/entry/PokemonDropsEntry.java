@@ -42,8 +42,7 @@ public class PokemonDropsEntry extends LootPoolSingletonContainer {
     protected void createItemStack(@NotNull Consumer<ItemStack> consumer, @NotNull LootContext context) {
         Pokemon pokemon = context.getParam(ModLootContextParams.POKEMON);
         Player player = context.getParam(LootContextParams.LAST_DAMAGE_PLAYER);
-
-        ReleaseRewards.LOGGER.info(String.valueOf(player instanceof ServerPlayer));
+        
         if(player instanceof ServerPlayer serverPlayer) {
 
             List<DropEntry> drops = pokemon.getForm().getDrops().getDrops(new IntRange(minAmount, maxAmount));
