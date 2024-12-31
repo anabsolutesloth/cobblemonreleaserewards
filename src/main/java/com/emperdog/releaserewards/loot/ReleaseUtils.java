@@ -28,26 +28,20 @@ public class ReleaseUtils {
             case "iv":
             case "ivs":
                 HashMap<Stat, Integer> ivStore = new HashMap<>();
-                pokemon.getIvs().forEach((stat) -> {
-                    ivStore.put(stat.getKey(), stat.getValue());
-                });
+                pokemon.getIvs().forEach((stat) -> ivStore.put(stat.getKey(), stat.getValue()));
                 return ivStore;
             case "effort":
             case "effort_values":
             case "ev":
             case "evs":
                 HashMap<Stat, Integer> evStore = new HashMap<>();
-                pokemon.getEvs().forEach((stat) -> {
-                    evStore.put(stat.getKey(), stat.getValue() + 1);
-                });
+                pokemon.getEvs().forEach((stat) -> evStore.put(stat.getKey(), stat.getValue() + 1));
                 return evStore;
             case "raw":
             case "actual":
             case "final":
                 HashMap<Stat, Integer> statStore = new HashMap<>();
-                Stats.Companion.getPERMANENT().forEach(thisStat -> {
-                    statStore.put(thisStat, pokemon.getStat(thisStat));
-                });
+                Stats.Companion.getPERMANENT().forEach(thisStat -> statStore.put(thisStat, pokemon.getStat(thisStat)));
                 return statStore;
             default:
                 ReleaseRewards.LOGGER.warn("Stat Subset name '{}' is invalid or Empty, returning an empty Subset.", subset);
