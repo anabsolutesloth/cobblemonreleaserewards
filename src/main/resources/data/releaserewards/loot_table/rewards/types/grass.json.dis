@@ -1,0 +1,39 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "nature_influence_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:grass_block",
+          "conditions": [
+            {
+              "condition": "releaserewards:nature_influence",
+              "stat": "atk",
+              "positive": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:grass_block",
+          "conditions": [
+            {
+              "condition": "releaserewards:nature_influence",
+              "stat": "none"
+            }
+          ],
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "stat_weighted_test",
+      "entries": [
+        {
+          "type": "releaserewards:stats_weighted",
+          "weight": 1,
+          "subset": "base",
+          "items": {
+            "hp": {"id": "cobblemon:pomeg_berry"},
+            "atk": {"id": "cobblemon:kelpsy_berry"},
+            "def": {"id": "cobblemon:qualot_berry"},
+            "spa": {"id": "cobblemon:hondew_berry"},
+            "spd": {"id": "cobblemon:grepa_berry"},
+            "spe": {"id": "cobblemon:tamato_berry"}
+          }
+        },
+        {
+          "type": "releaserewards:stats_weighted",
+          "weight": 1,
+          "subset": "base",
+          "items": {
+            "hp": {"id": "cobblemon:pomeg_berry"},
+            "atk": {"id": "cobblemon:kelpsy_berry"},
+            "def": {"id": "cobblemon:qualot_berry"},
+            "spa": {"id": "cobblemon:hondew_berry"},
+            "spd": {"id": "cobblemon:grepa_berry"},
+            "spe": {"id": "cobblemon:tamato_berry"}
+          },
+          "functions": [
+            {
+              "function": "set_count",
+              "count": 4
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

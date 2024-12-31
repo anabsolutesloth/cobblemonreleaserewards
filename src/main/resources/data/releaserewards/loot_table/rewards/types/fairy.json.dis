@@ -1,0 +1,21 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "pokemon_gender_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:cookie",
+          "conditions": [
+            {
+              "condition": "releaserewards:pokemon_gender",
+              "gender": "m"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

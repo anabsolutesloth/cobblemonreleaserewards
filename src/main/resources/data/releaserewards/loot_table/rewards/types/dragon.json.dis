@@ -2,16 +2,16 @@
   "pools": [
     {
       "rolls": 1,
-      "name": "condition_test",
+      "name": "hidden_ability_test",
       "entries": [
         {
           "type": "item",
           "weight": 1,
-          "name": "minecraft:iron_ingot",
+          "name": "minecraft:diamond",
           "conditions": [
             {
-              "condition": "releaserewards:pokemon_labels",
-              "labels": ["legendary"]
+              "condition": "releaserewards:hidden_ability",
+              "has_hidden_ability": true
             }
           ]
         }

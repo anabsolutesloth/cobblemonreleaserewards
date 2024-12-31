@@ -1,9 +1,13 @@
 package com.emperdog.releaserewards.loot;
 
+import com.cobblemon.mod.common.api.abilities.PotentialAbility;
 import com.cobblemon.mod.common.api.pokemon.stats.Stat;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import com.cobblemon.mod.common.pokemon.abilities.HiddenAbility;
 import com.emperdog.releaserewards.ReleaseRewards;
+import net.minecraft.resources.ResourceLocation;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,5 +51,42 @@ public class ReleaseUtils {
                 ReleaseRewards.LOGGER.warn("Stat Subset name '{}' is invalid or Empty, returning an empty Subset.", subset);
                 return new HashMap<>();
         }
+    }
+
+    @Nullable
+    public static Stat getStatByAlias(String statName) {
+        return switch (statName) {
+            case "hp", "health", "maxhp", "maxhealth", "max_hp", "max_health" ->
+                    Stats.HP;
+            case "atk", "attack" ->
+                    Stats.ATTACK;
+            case "def", "defence", "defense" ->
+                    Stats.DEFENCE;
+            case "spa", "spatk", "specialattack", "special_attack" ->
+                    Stats.SPECIAL_ATTACK;
+            case "spd", "spdef", "specialdefence", "specialdefense", "special_defence", "special_defense" ->
+                    Stats.SPECIAL_DEFENCE;
+            case "spe", "speed" ->
+                Stats.SPEED;
+            case "none", "null" ->
+                null;
+            default -> {
+                ReleaseRewards.LOGGER.warn("'{}' is not a valid alias for any Stat! Returning null.", statName);
+                yield null;
+            }
+        };
+    }
+
+    public static boolean hasHiddenAbility(Pokemon pokemon, boolean wantsHidden) {
+        for (PotentialAbility ability : pokemon.getForm().getAbilities()) {
+            if(ability instanceof HiddenAbility) {
+                return (pokemon.getAbility().getTemplate() == ability.getTemplate()) == wantsHidden;
+            }
+        }
+        return false;
+    }
+
+    public static ResourceLocation getSpeciesTableLocation(ResourceLocation speciesLocation) {
+        return ResourceLocation.fromNamespaceAndPath(ReleaseRewards.MODID, "rewards/species/"+ speciesLocation.getNamespace() +"/"+ speciesLocation.getPath());
     }
 }

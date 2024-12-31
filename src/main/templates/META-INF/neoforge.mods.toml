@@ -88,16 +88,8 @@ side="BOTH"
 [[dependencies.${mod_id}]]
 modId="cobblemon"
 type="required"
-reason="Release Rewards is a Cobblemon addon Mod."
+reason="Release Rewards is a Cobblemon sidemod."
 versionRange="${cobblemon_version_range}"
-ordering="NONE"
-side="BOTH"
-
-[[dependencies.${mod_id}]]
-modId="kotlinforforge"
-type="required"
-reason="Required by Cobblemon."
-versionRange="${kff_version_range}"
 ordering="NONE"
 side="BOTH"
 

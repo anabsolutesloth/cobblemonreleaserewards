@@ -174,7 +174,6 @@ var generateModMetadata = tasks.register("generateModMetadata", ProcessResources
             cobblemon_version      : cobblemon_version,
             cobblemon_version_range: cobblemon_version_range,
             kff_version            : kff_version,
-            kff_version_range      : kff_version_range,
             jei_version            : jei_version
     ]
     inputs.properties replaceProperties

@@ -1,0 +1,21 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "pokemon_label_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:iron_ingot",
+          "conditions": [
+            {
+              "condition": "releaserewards:pokemon_label",
+              "labels": ["legendary"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

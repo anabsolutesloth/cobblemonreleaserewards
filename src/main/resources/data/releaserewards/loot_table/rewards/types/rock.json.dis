@@ -1,0 +1,26 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "level_bonus_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:stone",
+          "functions": [
+            {
+              "function": "releaserewards:level_bonus",
+              "levels_per": 10
+            },
+            {
+              "function": "releaserewards:level_bonus",
+              "starting_at": 50,
+              "levels_per": 5
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -4,8 +4,8 @@ import com.cobblemon.mod.common.api.events.storage.ReleasePokemonEvent;
 import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.api.types.ElementalTypes;
 import com.cobblemon.mod.common.pokemon.Pokemon;
-import com.cobblemon.mod.common.pokemon.Species;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
+import com.emperdog.releaserewards.loot.ReleaseUtils;
 import kotlin.Unit;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -14,26 +14,23 @@ import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
-import java.util.function.Function;
 
 public class ReleaseHandler {
-    private static final Logger log = LoggerFactory.getLogger(ReleaseHandler.class);
+    // global Reward Table
+    public static final ResourceKey<LootTable> globalRewardTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewards.MODID, "rewards/global"));
 
-    public static ResourceKey<LootTable> globalRewardTable =
-            ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewards.MODID, "rewards/global"));
+    // full list of Type tables mapped to corresponding ElementalType
+    public static final Map<ElementalType, ResourceKey<LootTable>> typeRewardTable = typeListToResourceKeys();
 
-    public static Map<ElementalType, ResourceKey<LootTable>> typeRewardTable = typeListToResourceKeys();
-
-    public static Function<Species, ResourceKey<LootTable>> speciesRewardTable = (species) ->
-            ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewards.MODID, "rewards/species/"+ species.getName().toLowerCase()));
+    // stores generated species table ResourceKeys because expendive to create (supposedly)
+    public static HashMap<ResourceLocation, ResourceKey<LootTable>> storedSpeciesRewardTables = new HashMap<>();
 
     public static Unit handleReleaseEvent(ReleasePokemonEvent event) {
         ServerPlayer player = event.getPlayer();
@@ -41,8 +38,10 @@ public class ReleaseHandler {
         Level level = player.level();
         ReloadableServerRegistries.Holder reloadableRegistries = Objects.requireNonNull(player.getServer()).reloadableRegistries();
 
-        log.info("providing Release Rewards to player "+ player.getName().getString() +", who released "+ pokemon.getSpecies().getName() +"!");
+        ReleaseRewards.LOGGER.info("providing Release Rewards to player '{}', who released '{}'!",
+                player.getName().getString(), pokemon.getSpecies().resourceIdentifier.toString());
 
+        //get Global table
         LootTable globalTable = reloadableRegistries.getLootTable(globalRewardTable);
 
         //get Type tables for released mon's types
@@ -51,7 +50,7 @@ public class ReleaseHandler {
         LootTable chosenTypeTable = reloadableRegistries.getLootTable(typeTables.get(new Random().nextInt(typeTables.size())));
 
         //get Species table for released mon
-        LootTable speciesTable = reloadableRegistries.getLootTable(getSpeciesRewardTable(pokemon.getSpecies()));
+        LootTable speciesTable = reloadableRegistries.getLootTable(Objects.requireNonNull(getSpeciesRewardTable(pokemon)));
 
         //create LootContextParams for this context
         LootParams.Builder builder = new LootParams.Builder((ServerLevel) level);
@@ -59,20 +58,9 @@ public class ReleaseHandler {
         builder.withParameter(ModLootContextParams.POKEMON, pokemon);
         LootParams params = builder.create(ModLootContextParams.Set.PLAYER_AND_POKEMON);
 
-        globalTable.getRandomItems(params).forEach((stack) -> {
-            ItemEntity itemEntity = new ItemEntity(level, player.position().x, player.position().y, player.position().z, stack);
-            level.addFreshEntity(itemEntity);
-        });
-
-        chosenTypeTable.getRandomItems(params).forEach(stack -> {
-            ItemEntity itemEntity = new ItemEntity(level, player.position().x, player.position().y, player.position().z, stack);
-            level.addFreshEntity(itemEntity);
-        });
-
-        speciesTable.getRandomItems(params).forEach(stack -> {
-            ItemEntity itemEntity = new ItemEntity(level, player.position().x, player.position().y, player.position().z, stack);
-            level.addFreshEntity(itemEntity);
-        });
+        spawnLootAtPlayer(player, globalTable.getRandomItems(params));
+        spawnLootAtPlayer(player, chosenTypeTable.getRandomItems(params));
+        spawnLootAtPlayer(player, speciesTable.getRandomItems(params));
 
         return Unit.INSTANCE;
     }
@@ -85,8 +73,25 @@ public class ReleaseHandler {
         return typeRewardTable.get(type);
     }
 
-    public static ResourceKey<LootTable> getSpeciesRewardTable(Species species) {
-        return speciesRewardTable.apply(species);
+    public static ResourceKey<LootTable> getSpeciesRewardTable(Pokemon pokemon) {
+        ResourceLocation speciesLocation = pokemon.getSpecies().resourceIdentifier;
+
+        // check for species table in storage
+        if(storedSpeciesRewardTables.containsKey(speciesLocation))
+            return storedSpeciesRewardTables.get(speciesLocation);
+
+        ResourceLocation speciesTableLocation = ReleaseUtils.getSpeciesTableLocation(speciesLocation);
+
+        ResourceKey<LootTable> speciesTableKey = ResourceKey.create(Registries.LOOT_TABLE, speciesTableLocation);
+        storedSpeciesRewardTables.put(speciesLocation, speciesTableKey);
+        return speciesTableKey;
+    }
+
+    public static void spawnLootAtPlayer(ServerPlayer player, List<ItemStack> loot) {
+        loot.forEach(stack -> {
+            ItemEntity itemEntity = new ItemEntity(player.level(), player.position().x, player.position().y, player.position().z, stack);
+            player.level().addFreshEntity(itemEntity);
+        });
     }
 
     private static HashMap<ElementalType, ResourceKey<LootTable>> typeListToResourceKeys() {
