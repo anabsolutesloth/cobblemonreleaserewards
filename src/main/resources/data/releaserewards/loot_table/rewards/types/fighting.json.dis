@@ -1,0 +1,21 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "knows_move_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:gold_ingot",
+          "conditions": [
+            {
+              "condition": "releaserewards:knows_move",
+              "moves": ["machpunch", "drainpunch", "dynamicpunch"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

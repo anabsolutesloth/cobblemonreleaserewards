@@ -29,6 +29,9 @@ public class ModLootConditions {
     public static final Supplier<LootItemConditionType> NATURE_INFLUENCE =
             LOOT_CONDITION_TYPES.register("nature_influence", () -> new LootItemConditionType(NatureInfluenceCondition.CODEC));
 
+    public static final Supplier<LootItemConditionType> KNOWS_MOVE =
+            LOOT_CONDITION_TYPES.register("knows_move", () -> new LootItemConditionType(KnowsMoveCondition.CODEC));
+
     public static final Supplier<LootItemConditionType> TERA_TYPE =
             LOOT_CONDITION_TYPES.register("tera_type", () -> new LootItemConditionType(TeraTypeCondition.CODEC));
 
