@@ -1,0 +1,21 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "gmax_factor_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:spider_eye",
+          "entries": [
+            {
+              "condition": "releaserewards:gmax_factor",
+              "gmax": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

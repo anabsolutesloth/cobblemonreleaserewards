@@ -1,0 +1,21 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "tera_type_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:emerald",
+          "conditions": [
+            {
+              "condition": "releaserewards:tera_type",
+              "types": ["cobblemon:normal"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

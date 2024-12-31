@@ -28,4 +28,10 @@ public class ModLootConditions {
 
     public static final Supplier<LootItemConditionType> NATURE_INFLUENCE =
             LOOT_CONDITION_TYPES.register("nature_influence", () -> new LootItemConditionType(NatureInfluenceCondition.CODEC));
+
+    public static final Supplier<LootItemConditionType> TERA_TYPE =
+            LOOT_CONDITION_TYPES.register("tera_type", () -> new LootItemConditionType(TeraTypeCondition.CODEC));
+
+    public static final Supplier<LootItemConditionType> GMAX_FACTOR =
+            LOOT_CONDITION_TYPES.register("gmax_factor", () -> new LootItemConditionType(GmaxFactorCondition.CODEC));
 }
