@@ -1,0 +1,16 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "pokemon_drops_test",
+      "entries": [
+        {
+          "type": "releaserewards:pokemon_drops",
+          "weight": 1,
+          "min_amount": 1,
+          "max_amount": 3
+        }
+      ]
+    }
+  ]
+}

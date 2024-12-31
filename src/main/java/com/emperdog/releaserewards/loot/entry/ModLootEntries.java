@@ -13,4 +13,7 @@ public class ModLootEntries {
 
     public static final Supplier<LootPoolEntryType> STATS_WEIGHTED =
             LOOT_POOL_ENTRY_TYPES.register("stats_weighted", () -> new LootPoolEntryType(StatsWeightedItemEntry.CODEC));
+
+    public static final Supplier<LootPoolEntryType> POKEMON_DROPS =
+            LOOT_POOL_ENTRY_TYPES.register("pokemon_drops", () -> new LootPoolEntryType(PokemonDropsEntry.CODEC));
 }

@@ -30,12 +30,12 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
 
     private final Map<EnumPokemonStats, ItemStack> options;
     private final String subset;
-    private final int addedWeight;
+    private static int addedWeight = 0;
 
     public static final MapCodec<StatsWeightedItemEntry> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
                     statMapCodec(ItemStack.CODEC).codec().fieldOf("items").forGetter(e -> e.options),
                             Codec.STRING.fieldOf("subset").forGetter(e -> e.subset),
-                            Codec.INT.optionalFieldOf("added_weight", 0).forGetter(e -> e.addedWeight))
+                            Codec.INT.optionalFieldOf("added_weight", 0).forGetter(e -> addedWeight))
                         .and(singletonFields(inst))
                         .apply(inst, StatsWeightedItemEntry::new)
             );
@@ -64,7 +64,7 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
         stats.forEach((stat, value) -> {
             ItemStack current = options.get(EnumPokemonStats.valueOf(stat.getShowdownId().toUpperCase()));
             stacks.add(current);
-            totalWeight.add(value);
+            totalWeight.add(value + addedWeight);
         });
 
         //weight selection based on LootPool#addRandomItem(Consumer<ItemStack>, LootContext)
@@ -76,7 +76,7 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
             int weight = random.nextInt(totalWeight.intValue());
 
             for (EnumPokemonStats stat: options.keySet()) {
-                weight -= stats.get(Stats.Companion.getStat(stat.getSerializedName()));
+                weight -= stats.get(Stats.Companion.getStat(stat.getSerializedName())) + addedWeight;
                 if(weight < 0) {
                     return options.get(stat);
                 }
