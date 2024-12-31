@@ -50,14 +50,14 @@ public record PokemonValueRangeCondition(int min, int max, String valueType) imp
                     pokemon.getMaxHealth();
             case "atk_stat", "attack_stat" ->
                     pokemon.getAttack();
-            case "stat_def", "stat_defence", "stat_defense" ->
+            case "def_stat", "defence_stat", "defense_stat" ->
                     pokemon.getDefence();
-            case "stat_spa", "stat_spatk", "stat_specialattack", "stat_special_attack" ->
+            case "spa_stat", "spatk_stat", "specialattack_stat", "special_attack_stat" ->
                     pokemon.getSpecialAttack();
-            case "stat_spd", "stat_spdef", "stat_specialdefence", "stat_specialdefense", "stat_special_defence",
-                 "stat_special_defense" ->
+            case "spd_stat", "spdef_stat", "specialdefence_stat", "specialdefense_stat", "special_defence_stat",
+                 "special_defense_stat" ->
                     pokemon.getSpecialDefence();
-            case "stat_spe", "stat_speed" ->
+            case "spe_stat", "speed_stat" ->
                     pokemon.getSpeed();
             // raw EVs
             case "hp_ev", "health_ev" ->
