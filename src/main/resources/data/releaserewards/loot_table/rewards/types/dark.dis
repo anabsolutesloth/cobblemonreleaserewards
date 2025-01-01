@@ -2,16 +2,16 @@
   "pools": [
     {
       "rolls": 1,
-      "name": "evolution_stage_test",
+      "name": "tera_type_test",
       "entries": [
         {
           "type": "item",
           "weight": 1,
-          "name": "minecraft:heart_of_the_sea",
+          "name": "minecraft:emerald",
           "conditions": [
             {
-              "condition": "releaserewards:evolution_stage",
-              "stages": [2]
+              "condition": "releaserewards:tera_type",
+              "types": ["cobblemon:normal"]
             }
           ]
         }

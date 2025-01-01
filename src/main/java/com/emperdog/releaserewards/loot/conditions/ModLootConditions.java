@@ -42,4 +42,7 @@ public class ModLootConditions {
 
     public static final Supplier<LootItemConditionType> GMAX_FACTOR =
             LOOT_CONDITION_TYPES.register("gmax_factor", () -> new LootItemConditionType(GmaxFactorCondition.CODEC));
+
+    public static final Supplier<LootItemConditionType> EVOLUTION_STAGE =
+            LOOT_CONDITION_TYPES.register("evolution_stage", () -> new LootItemConditionType(EvolutionStageCondition.CODEC));
 }
