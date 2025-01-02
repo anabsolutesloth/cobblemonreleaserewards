@@ -11,13 +11,12 @@
           "conditions": [
             {
               "condition": "releaserewards:move_predicate",
-              "move_template": {
-                "power": 89,
-                "accuracy": 94,
-                "category": "physical"
+              "move_predicate": {
+                "power": 80,
+                "accuracy": 100,
+                "maxpp": 10
               },
-              "power_calc": "greater",
-              "accuracy_calc": "greater"
+              "power_calc": "equal"
             }
           ]
         }

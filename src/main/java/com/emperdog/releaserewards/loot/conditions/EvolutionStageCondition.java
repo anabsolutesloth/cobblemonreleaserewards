@@ -5,7 +5,7 @@ import com.cobblemon.mod.common.api.pokemon.PokemonSpecies;
 import com.cobblemon.mod.common.api.pokemon.evolution.Evolution;
 import com.cobblemon.mod.common.api.pokemon.evolution.PreEvolution;
 import com.cobblemon.mod.common.pokemon.Pokemon;
-import com.emperdog.releaserewards.ReleaseRewards;
+import com.emperdog.releaserewards.ReleaseRewardsConfig;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -37,27 +37,34 @@ public record EvolutionStageCondition(List<Integer> stages, boolean invert) impl
         Pokemon pokemon = context.getParam(ModLootContextParams.POKEMON);
         int estimatedEvoStage = 1;
         boolean hasPreOrEvo = false;
+        int iterations = 0;
 
         if(!isNull(pokemon.getForm().getPreEvolution())) {
             PreEvolution currentPreEvo = pokemon.getForm().getPreEvolution();
             while (!isNull(currentPreEvo)) {
-                ReleaseRewards.LOGGER.info(currentPreEvo.getSpecies().getName());
+                if(iterations == ReleaseRewardsConfig.maxPreEvoSearchDepth) {
+                    estimatedEvoStage = 0;
+                    break;
+                }
                 ++estimatedEvoStage;
 
                 if (isNull(currentPreEvo.getForm().getPreEvolution()))
                     break;
 
                 currentPreEvo = currentPreEvo.getForm().getPreEvolution();
+                ++iterations;
             }
             hasPreOrEvo = true;
         }
 
         Set<Evolution> evos = pokemon.getForm().getEvolutions();
-        int iterations = 0;
+        iterations = 0;
         while (!evos.isEmpty()) {
             //break condition for Addons implementing Form Changes as Pokemon that evolve into Forms of themselves
-            if(iterations == 10)
+            if(iterations == ReleaseRewardsConfig.maxEvoSearchDepth) {
+                estimatedEvoStage = 0;
                 break;
+            }
             // create storage for possible evos
             Set<Evolution> nextEvos = new HashSet<>();
             // iterate through evos
