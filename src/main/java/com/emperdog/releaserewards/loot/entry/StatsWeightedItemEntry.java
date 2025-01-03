@@ -19,7 +19,6 @@ import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
 import net.minecraft.world.level.storage.loot.entries.LootPoolSingletonContainer;
 import net.minecraft.world.level.storage.loot.functions.LootItemFunction;
 import net.minecraft.world.level.storage.loot.predicates.LootItemCondition;
-import org.apache.commons.compress.utils.Lists;
 import org.apache.commons.lang3.mutable.MutableInt;
 import org.jetbrains.annotations.NotNull;
 
@@ -59,7 +58,7 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
     public static ItemStack pickStatValueWeightedLoot(Map<EnumPokemonStats, ItemStack> options, Map<Stat, Integer> stats, LootContext context) {
         RandomSource random = context.getRandom();
         MutableInt totalWeight = new MutableInt();
-        List<ItemStack> stacks = Lists.newArrayList();
+        List<ItemStack> stacks = new ArrayList<>();
 
         stats.forEach((stat, value) -> {
             ItemStack current = options.get(EnumPokemonStats.valueOf(stat.getShowdownId().toUpperCase()));
