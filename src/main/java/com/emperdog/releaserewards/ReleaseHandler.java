@@ -24,13 +24,13 @@ import java.util.*;
 
 public class ReleaseHandler {
     // global Reward Table
-    public static final ResourceKey<LootTable> globalRewardTable = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewards.MODID, "rewards/global"));
+    public static final ResourceKey<LootTable> GLOBAL_REWARD_TABLE = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewards.MODID, "rewards/global"));
 
     // full list of Type tables mapped to corresponding ElementalType
-    public static final Map<ElementalType, ResourceKey<LootTable>> typeRewardTable = typeListToResourceKeys();
+    public static final Map<ElementalType, ResourceKey<LootTable>> TYPE_REWARD_TABLES = typeListToResourceKeys();
 
     // stores generated species table ResourceKeys because expendive to create (supposedly)
-    public static HashMap<ResourceLocation, ResourceKey<LootTable>> storedSpeciesRewardTables = new HashMap<>();
+    public static HashMap<ResourceLocation, ResourceKey<LootTable>> STORED_SPECIES_REWARD_TABLES = new HashMap<>();
 
     public static Unit handleReleaseEvent(ReleasePokemonEvent event) {
         ServerPlayer player = event.getPlayer();
@@ -39,7 +39,7 @@ public class ReleaseHandler {
         ReloadableServerRegistries.Holder reloadableRegistries = Objects.requireNonNull(player.getServer()).reloadableRegistries();
 
         //get Global table
-        LootTable globalTable = reloadableRegistries.getLootTable(globalRewardTable);
+        LootTable globalTable = reloadableRegistries.getLootTable(GLOBAL_REWARD_TABLE);
 
         //get Type tables for released mon's types
         List<ResourceKey<LootTable>> typeTables = new ArrayList<ResourceKey<LootTable>>();
@@ -47,7 +47,7 @@ public class ReleaseHandler {
         LootTable chosenTypeTable = reloadableRegistries.getLootTable(typeTables.get(new Random().nextInt(typeTables.size())));
 
         //get Species table for released mon
-        LootTable speciesTable = reloadableRegistries.getLootTable(Objects.requireNonNull(getSpeciesRewardTable(pokemon)));
+        LootTable speciesTable = reloadableRegistries.getLootTable(getSpeciesRewardTable(pokemon));
 
         //create LootContextParams for this context
         LootParams.Builder builder = new LootParams.Builder((ServerLevel) level);
@@ -62,25 +62,25 @@ public class ReleaseHandler {
         return Unit.INSTANCE;
     }
 
-    public static ResourceKey<LootTable> getGlobalRewardTable() {
-        return globalRewardTable;
+    public static ResourceKey<LootTable> getGlobalRewards() {
+        return GLOBAL_REWARD_TABLE;
     }
 
     public static ResourceKey<LootTable> getTypeRewardTable(ElementalType type) {
-        return typeRewardTable.get(type);
+        return TYPE_REWARD_TABLES.get(type);
     }
 
     public static ResourceKey<LootTable> getSpeciesRewardTable(Pokemon pokemon) {
         ResourceLocation speciesLocation = pokemon.getSpecies().resourceIdentifier;
 
         // check for species table in storage
-        if(storedSpeciesRewardTables.containsKey(speciesLocation))
-            return storedSpeciesRewardTables.get(speciesLocation);
+        if(STORED_SPECIES_REWARD_TABLES.containsKey(speciesLocation))
+            return STORED_SPECIES_REWARD_TABLES.get(speciesLocation);
 
         ResourceLocation speciesTableLocation = ReleaseUtils.getSpeciesTableLocation(speciesLocation);
 
         ResourceKey<LootTable> speciesTableKey = ResourceKey.create(Registries.LOOT_TABLE, speciesTableLocation);
-        storedSpeciesRewardTables.put(speciesLocation, speciesTableKey);
+        STORED_SPECIES_REWARD_TABLES.put(speciesLocation, speciesTableKey);
         return speciesTableKey;
     }
 

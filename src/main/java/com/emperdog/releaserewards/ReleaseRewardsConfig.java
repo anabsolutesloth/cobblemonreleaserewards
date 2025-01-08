@@ -5,8 +5,6 @@ import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-// An example config class. This is not required, but it's a good idea to have one to keep your config organized.
-// Demonstrates how to use Neo's config APIs
 @EventBusSubscriber(modid = ReleaseRewards.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class ReleaseRewardsConfig
 {
@@ -32,7 +30,16 @@ public class ReleaseRewardsConfig
     public static int maxEvoSearchDepth;
 
     @SubscribeEvent
-    static void onLoad(final ModConfigEvent event) {
+    static void onLoad(final ModConfigEvent.Loading event) {
+        assignConfigValues();
+    }
+
+    @SubscribeEvent
+    static void onLoad(final ModConfigEvent.Reloading event) {
+        assignConfigValues();
+    }
+
+    private static void assignConfigValues() {
         maxPreEvoSearchDepth = MAX_PREEVO_SEARCH_DEPTH.get();
         maxEvoSearchDepth = MAX_EVO_SEARCH_DEPTH.get();
     }

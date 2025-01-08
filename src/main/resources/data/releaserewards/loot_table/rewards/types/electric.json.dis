@@ -11,7 +11,8 @@
           "conditions": [
             {
               "condition": "releaserewards:pokemon_label",
-              "labels": ["legendary"]
+              "labels": ["legendary"],
+              "invert": true
             }
           ]
         }
