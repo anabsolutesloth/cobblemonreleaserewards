@@ -20,8 +20,10 @@
     ]
   },
   "depends": {
+    "fabricloader": ">=${loader_version}",
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
+    "java": ">=21",
     "architectury": "${architectury_version}.x",
     "cobblemon": ">=${cobblemon_version}"
   }

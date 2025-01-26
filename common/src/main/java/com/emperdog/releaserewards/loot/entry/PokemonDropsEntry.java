@@ -45,7 +45,7 @@ public class PokemonDropsEntry extends LootPoolSingletonContainer {
         
         if(player instanceof ServerPlayer serverPlayer) {
 
-            List<DropEntry> drops = pokemon.getForm().getDrops().getDrops(new IntRange(minAmount, maxAmount));
+            List<DropEntry> drops = pokemon.getForm().getDrops().getDrops(new IntRange(minAmount, maxAmount), pokemon);
 
             drops.forEach(drop -> drop.drop(serverPlayer, serverPlayer.serverLevel(), serverPlayer.position(), serverPlayer));
         } else {

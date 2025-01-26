@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "[${loader_version},)"
+loaderVersion = "[4.0.24,)"
 issueTrackerURL = "https://github.com/anabsolutesloth/cobblemonreleaserewards/issues"
 license = "${mod_license}"
 

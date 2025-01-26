@@ -14,7 +14,7 @@ fabric_kotlin = "1.12.0+kotlin.2.0.10"
 neoforge_loader = "21.1.66"
 neoforge_kotlin = "5.5.0"
 
-cobblemon = "1.6.0+1.21.1"
+cobblemon = "1.6.1+1.21.1"
 
 junit = "5.10.2"
 mockk = "1.13.8"
