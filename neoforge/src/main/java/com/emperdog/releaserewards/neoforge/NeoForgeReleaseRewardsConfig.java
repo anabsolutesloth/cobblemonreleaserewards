@@ -15,7 +15,7 @@ public class NeoForgeReleaseRewardsConfig implements ReleaseRewardsConfig {
     public static final ModConfigSpec.IntValue MAX_PREEVO_SEARCH_DEPTH = BUILDER
             .comment("Max search depth for EvolutionStageCondition finding Pre-Evolutions of species.",
                     "Prevents crashes from recursive Pre-Evolutions.",
-                    "Why? why anyone would do that is beyond me, but it exists somwhere.",
+                    "Why? why anyone would do that is beyond me, but it exists somewhere.",
                     "If this activates, the Species will be considered Unevolving")
             .defineInRange("maxPreEvoSearchDepth", 10, 0, Integer.MAX_VALUE);
 

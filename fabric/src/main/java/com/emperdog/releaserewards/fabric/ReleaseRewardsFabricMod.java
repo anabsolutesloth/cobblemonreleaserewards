@@ -19,9 +19,7 @@ public class ReleaseRewardsFabricMod implements ModInitializer {
         ModLootEntries.LOOT_POOL_ENTRY_TYPES.register();
         ModLootModifiers.LOOT_FUNCTION_TYPES.register();
 
-        ServerWorldEvents.LOAD.register(((server, world) -> {
-            FabricReleaseRewardsConfig.load();
-        }));
+        ServerWorldEvents.LOAD.register(((server, world) -> FabricReleaseRewardsConfig.load()));
 
         CobblemonEvents.POKEMON_RELEASED_EVENT_POST.subscribe(Priority.NORMAL, ReleaseHandler::handleReleaseEvent);
 
