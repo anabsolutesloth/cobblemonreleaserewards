@@ -1,0 +1,64 @@
+[versions]
+kotlin = "2.0.10"
+
+minecraft = "1.21.1"
+architectury = "13.0.6"
+parchment = "2024.11.13"
+architectury_loom = "1.7-SNAPSHOT"
+architectury_gradle = "3.4-SNAPSHOT"
+
+fabric_loader = "0.16.5"
+fabric_api = "0.104.0+1.21.1"
+fabric_kotlin = "1.12.0+kotlin.2.0.10"
+
+neoforge_loader = "21.1.66"
+neoforge_kotlin = "5.5.0"
+
+cobblemon = "1.6.0+1.21.1"
+
+junit = "5.10.2"
+mockk = "1.13.8"
+
+shadow = "8.1.1"
+
+
+[libraries]
+gradle_kotlin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlin" }
+gradle_architectury = { module = "architectury-plugin:architectury-plugin.gradle.plugin", version.ref = "architectury_gradle" }
+gradle_loom = { module = "dev.architectury:architectury-loom", version.ref = "architectury_loom" }
+gradle_shadow = { module = "com.github.johnrengelman:shadow", version.ref = "shadow"}
+
+kotlin_stdlib = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8", version.ref = "kotlin" }
+kotlin_reflect = { module = "org.jetbrains.kotlin:kotlin-reflect", version.ref = "kotlin" }
+kotlin_json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version = "1.5.1" }
+
+minecraft = { module = "com.mojang:minecraft", version.ref = "minecraft" }
+parchment = {module = "org.parchmentmc.data:parchment-1.21.1", version.ref = "parchment"}
+architectury = { module = "dev.architectury:architectury", version.ref = "architectury" }
+
+architectury_fabric = { module = "dev.architectury:architectury-fabric", version.ref = "architectury" }
+fabric_loader = { module = "net.fabricmc:fabric-loader", version.ref = "fabric_loader" }
+fabric_api = { module = "net.fabricmc.fabric-api:fabric-api", version.ref = "fabric_api" }
+#fabric_apiDeprecated = { module = "net.fabricmc.fabric-api:fabric-api-deprecated", version.ref = "fabric_api" }
+fabric_kotlin = { module = "net.fabricmc:fabric-language-kotlin", version.ref = "fabric_kotlin" }
+
+architectury_neoforge = { module = "dev.architectury:architectury-neoforge", version.ref = "architectury" }
+neoforge_loader = { module = "net.neoforged:neoforge", version.ref = "neoforge_loader" }
+neoforge_kotlin = { module = "thedarkcolour:kotlinforforge-neoforge", version.ref = "neoforge_kotlin" }
+
+cobblemon_common = { module = "com.cobblemon:mod", version.ref = "cobblemon" }
+cobblemon_fabric = { module = "com.cobblemon:fabric", version.ref = "cobblemon" }
+cobblemon_neoforge = { module = "com.cobblemon:neoforge", version.ref = "cobblemon" }
+
+junit_launcher = { module = "org.junit.platform:junit-platform-launcher" }
+junit_engine = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+mockk = { module = "io.mockk:mockk", version.ref = "mockk" }
+
+
+[plugins]
+#kotlin_jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "kotlin" }
+kotlin_serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+
+#architectury = { id = "architectury-plugin", version.ref = "architectury_gradle" }
+#loom = { id = "dev.architectury.loom", version.ref = "architectury_loom" }
+#shadow = { id = "com.github.johnrengelman.shadow", version.ref = "shadow" }
