@@ -12,7 +12,7 @@ authors = [
 ]
 description = '''${mod_description}'''
 # logo file optional
-logoFile = "${mod_id}_icon.png"
+logoFile = "assets/releaserewards/${mod_id}_icon.png"
 
 
 [[dependencies.${mod_id}]]
