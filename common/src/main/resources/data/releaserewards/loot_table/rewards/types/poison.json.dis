@@ -8,7 +8,7 @@
           "type": "item",
           "weight": 1,
           "name": "minecraft:spider_eye",
-          "entries": [
+          "conditions": [
             {
               "condition": "releaserewards:gmax_factor",
               "gmax": true
