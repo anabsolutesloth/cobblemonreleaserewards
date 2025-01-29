@@ -13,7 +13,7 @@
     "issues": "https://github.com/anabsolutesloth/cobblemonreleaserewards/issues"
   },
   "license": "${mod_license}",
-  "environment": "server",
+  "environment": "*",
   "entrypoints": {
     "main": [
       "com.emperdog.releaserewards.fabric.ReleaseRewardsFabricMod"

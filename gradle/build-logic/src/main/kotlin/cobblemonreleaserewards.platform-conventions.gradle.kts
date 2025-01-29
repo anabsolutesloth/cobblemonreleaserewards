@@ -14,14 +14,14 @@ dependencies {
 
 tasks {
     jar {
-        archiveBaseName.set("cobblemonreleaserewards-${project.name}")
+        archiveBaseName.set("releaserewards-${project.name}")
         archiveClassifier.set("dev")
     }
 
     shadowJar {
         exclude("architectury.common.json")
 
-        archiveBaseName.set("cobblemonreleaserewards-${project.name}")
+        archiveBaseName.set("releaserewards-${project.name}")
         archiveClassifier.set("dev-shadow")
         configurations = listOf(bundle)
         mergeServiceFiles()
@@ -31,7 +31,7 @@ tasks {
         dependsOn(shadowJar)
         inputFile.set(shadowJar.flatMap { it.archiveFile })
 
-        archiveBaseName.set("cobblemonreleaserewards-${project.name}")
+        archiveBaseName.set("releaserewards-${project.name}")
         archiveVersion.set("${rootProject.version}")
     }
 }
