@@ -15,6 +15,7 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemConditionType;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 import static java.util.Objects.isNull;
 
@@ -36,8 +37,41 @@ public record MovePredicateCondition(MovePredicate move, String powerCalc, Strin
     @Override
     public boolean test(LootContext context) {
         Pokemon pokemon = context.getParam(ModLootContextParams.POKEMON);
-        Set<MoveTemplate> pokemonMoves = pokemon.getAllAccessibleMoves();
+        Stream<MoveTemplate> pokemonMoves = pokemon.getAllAccessibleMoves().stream();
 
+        // Power
+        if(!powerCalc.isEmpty())
+            pokemonMoves = pokemonMoves.filter(knownMove -> testPropertyCalc(powerCalc, knownMove.getPower(), move.getPower()));
+
+        // Accuracy
+        if(!accuracyCalc.isEmpty())
+            pokemonMoves = pokemonMoves.filter(knownMove -> testPropertyCalc(accuracyCalc, knownMove.getAccuracy(), move.getAccuracy()));
+
+        // Category
+        if(!isNull(move.getDamageCategory()))
+            pokemonMoves = pokemonMoves.filter(knownMove -> knownMove.getDamageCategory() == move.getDamageCategory());
+
+        // Target
+        if(!isNull(move.getTarget()))
+            pokemonMoves = pokemonMoves.filter(knownMove -> knownMove.getTarget().equals(move.getTarget()));
+
+        // Type
+        if(move.getType() != ReleaseUtils.EMPTY_TYPE)
+            pokemonMoves = pokemonMoves.filter(knownMove -> knownMove.getElementalType() == move.getType());
+
+        // Priority
+        if(move.getPriority() > -99)
+            pokemonMoves = pokemonMoves.filter(knownMove -> testPropertyCalc(priorityCalc, knownMove.getPriority(), move.getPriority()));
+
+        // Max PP
+        if(move.getMaxpp() > 0)
+            pokemonMoves = pokemonMoves.filter(knownMove -> testPropertyCalc(maxppCalc, knownMove.getPp(), move.getMaxpp()));
+
+        List<MoveTemplate> moves = pokemonMoves.toList();
+        ReleaseRewardsCommon.LOGGER.info("a move passed: {}", !moves.isEmpty());
+        moves.forEach(knownMove -> ReleaseRewardsCommon.LOGGER.info(knownMove.getName()));
+        return !moves.isEmpty();
+        /*
         for (MoveTemplate knownMove : pokemonMoves) {
             // Power
             if(!powerCalc.isEmpty()
@@ -53,13 +87,12 @@ public record MovePredicateCondition(MovePredicate move, String powerCalc, Strin
 
             // Category
             if(!isNull(move.getDamageCategory())
-                    && (knownMove.getDamageCategory() != move.getDamageCategory()
-                    || knownMove.getDamageCategory() != move.getDamageCategory()))
+                    && knownMove.getDamageCategory() != move.getDamageCategory())
                 continue;
 
             // Target
             if(!isNull(move.getTarget())
-                    &&!knownMove.getTarget().equals(move.getTarget()))
+                    && !knownMove.getTarget().equals(move.getTarget()))
                 continue;
 
             // Type
@@ -82,6 +115,7 @@ public record MovePredicateCondition(MovePredicate move, String powerCalc, Strin
             return true;
         }
         return false;
+         */
     }
 
     public boolean testPropertyCalc(String calcType, double knownMoveValue, double moveValue) {

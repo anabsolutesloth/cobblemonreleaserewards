@@ -13,10 +13,17 @@
               "condition": "releaserewards:move_predicate",
               "move_predicate": {
                 "power": 80,
-                "accuracy": 100,
-                "maxpp": 10
+                "accuracy": 94,
+                "type": "ground",
+                "category": "phys",
+                "priority": 0,
+                "target": "normal",
+                "max_pp": 15
               },
-              "power_calc": "equal"
+              "power_calc": "equal",
+              "accuracy_calc": ">",
+              "priority_calc": "==",
+              "max_pp_calc": "<"
             }
           ]
         }

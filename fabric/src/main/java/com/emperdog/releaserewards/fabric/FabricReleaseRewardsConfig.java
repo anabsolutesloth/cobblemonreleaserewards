@@ -30,6 +30,7 @@ public class FabricReleaseRewardsConfig implements ReleaseRewardsConfig {
                 Data data = gson.fromJson(reader, Data.class);
 
                 maxPreEvoSearchDepth = data.maxPreEvoSearchDepth;
+                maxEvoSearchDepth = data.maxEvoSearchDepth;
 
                 reader.close();
             } catch (IOException e) {
@@ -78,11 +79,11 @@ public class FabricReleaseRewardsConfig implements ReleaseRewardsConfig {
 
     @Override
     public int getMaxPreEvoSearchDepth() {
-        return 0;
+        return maxPreEvoSearchDepth;
     }
 
     @Override
     public int getMaxEvoSearchDepth() {
-        return 0;
+        return maxEvoSearchDepth;
     }
 }
