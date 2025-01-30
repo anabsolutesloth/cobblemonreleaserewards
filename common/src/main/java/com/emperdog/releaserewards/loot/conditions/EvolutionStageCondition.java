@@ -5,6 +5,7 @@ import com.cobblemon.mod.common.api.pokemon.PokemonSpecies;
 import com.cobblemon.mod.common.api.pokemon.evolution.Evolution;
 import com.cobblemon.mod.common.api.pokemon.evolution.PreEvolution;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import com.emperdog.releaserewards.ReleaseRewardsCommon;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.emperdog.releaserewards.services.Services;
 import com.mojang.serialization.Codec;
@@ -89,7 +90,7 @@ public record EvolutionStageCondition(List<Integer> stages, boolean invert) impl
 
         if(!hasPreOrEvo)
             --estimatedEvoStage;
-
+        //ReleaseRewardsCommon.LOGGER.info("{} = {}", pokemon.getSpecies().resourceIdentifier, estimatedEvoStage);
         return stages.contains(estimatedEvoStage) != invert;
     }
 }
