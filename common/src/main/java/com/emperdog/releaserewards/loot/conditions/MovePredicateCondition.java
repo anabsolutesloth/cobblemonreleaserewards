@@ -68,8 +68,8 @@ public record MovePredicateCondition(MovePredicate move, String powerCalc, Strin
             pokemonMoves = pokemonMoves.filter(knownMove -> testPropertyCalc(maxppCalc, knownMove.getPp(), move.getMaxpp()));
 
         List<MoveTemplate> moves = pokemonMoves.toList();
-        ReleaseRewardsCommon.LOGGER.info("a move passed: {}", !moves.isEmpty());
-        moves.forEach(knownMove -> ReleaseRewardsCommon.LOGGER.info(knownMove.getName()));
+        //ReleaseRewardsCommon.LOGGER.info("a move passed: {}", !moves.isEmpty());
+        //moves.forEach(knownMove -> ReleaseRewardsCommon.LOGGER.info(knownMove.getName()));
         return !moves.isEmpty();
         /*
         for (MoveTemplate knownMove : pokemonMoves) {
