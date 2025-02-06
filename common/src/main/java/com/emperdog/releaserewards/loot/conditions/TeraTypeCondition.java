@@ -28,6 +28,6 @@ public record TeraTypeCondition(List<TeraType> teraTypes, boolean invert) implem
     @Override
     public boolean test(LootContext context) {
         Pokemon pokemon = context.getParam(ModLootContextParams.POKEMON);
-        return teraTypes.contains(pokemon.getTeraType());
+        return teraTypes.contains(pokemon.getTeraType()) != invert;
     }
 }
