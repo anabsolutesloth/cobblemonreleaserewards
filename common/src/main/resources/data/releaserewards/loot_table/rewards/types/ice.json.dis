@@ -1,0 +1,21 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "pokemon_properties_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:emerald",
+          "conditions": [
+            {
+              "condition": "releaserewards:pokemon_properties",
+              "properties": "ability=snowwarning nature=hardy"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

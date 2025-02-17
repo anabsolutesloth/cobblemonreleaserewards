@@ -46,4 +46,7 @@ public class ModLootConditions {
 
     public static final Supplier<LootItemConditionType> SHINY =
             LOOT_CONDITION_TYPES.register("shiny", () -> new LootItemConditionType(ShinyCondition.CODEC));
+
+    public static final Supplier<LootItemConditionType> POKEMON_PROPERTIES =
+            LOOT_CONDITION_TYPES.register("pokemon_properties", () -> new LootItemConditionType(PokemonPropertiesCondition.CODEC));
 }
