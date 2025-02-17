@@ -1,0 +1,20 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "shiny_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:gold_block",
+          "conditions": [
+            {
+              "condition": "releaserewards:shiny"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

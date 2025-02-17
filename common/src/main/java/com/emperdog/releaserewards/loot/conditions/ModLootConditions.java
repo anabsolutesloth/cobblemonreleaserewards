@@ -43,4 +43,7 @@ public class ModLootConditions {
 
     public static final Supplier<LootItemConditionType> EVOLUTION_STAGE =
             LOOT_CONDITION_TYPES.register("evolution_stage", () -> new LootItemConditionType(EvolutionStageCondition.CODEC));
+
+    public static final Supplier<LootItemConditionType> SHINY =
+            LOOT_CONDITION_TYPES.register("shiny", () -> new LootItemConditionType(ShinyCondition.CODEC));
 }
