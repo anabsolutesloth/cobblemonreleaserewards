@@ -21,13 +21,18 @@ import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class ReleaseHandler {
     // global Reward Table
     public static final ResourceKey<LootTable> GLOBAL_REWARD_TABLE = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewardsCommon.MODID, "rewards/global"));
 
     // full list of Type tables mapped to corresponding ElementalType
-    public static final Map<ElementalType, ResourceKey<LootTable>> TYPE_REWARD_TABLES = typeListToResourceKeys();
+    public static final Map<ElementalType, ResourceKey<LootTable>> TYPE_REWARD_TABLES = ElementalTypes.INSTANCE.all().stream()
+            .collect(Collectors.toMap(
+                    type -> type,
+                    type -> ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewardsCommon.MODID, "rewards/types/" + type.getName()))
+            ));
 
     // stores generated species table ResourceKeys because expendive to create (supposedly)
     public static HashMap<ResourceLocation, ResourceKey<LootTable>> STORED_SPECIES_REWARD_TABLES = new HashMap<>();
@@ -55,9 +60,9 @@ public class ReleaseHandler {
         builder.withParameter(ModLootContextParams.POKEMON, pokemon);
         LootParams params = builder.create(ModLootContextParams.Set.PLAYER_AND_POKEMON);
 
-        spawnLootAtPlayer(player, globalTable.getRandomItems(params));
-        spawnLootAtPlayer(player, chosenTypeTable.getRandomItems(params));
-        spawnLootAtPlayer(player, speciesTable.getRandomItems(params));
+        giveLootToPlayer(player, globalTable.getRandomItems(params));
+        giveLootToPlayer(player, chosenTypeTable.getRandomItems(params));
+        giveLootToPlayer(player, speciesTable.getRandomItems(params));
 
         return Unit.INSTANCE;
     }
@@ -84,18 +89,18 @@ public class ReleaseHandler {
         return speciesTableKey;
     }
 
-    public static void spawnLootAtPlayer(ServerPlayer player, List<ItemStack> loot) {
+    public static void giveLootToPlayer(ServerPlayer player, List<ItemStack> loot) {
         loot.forEach(stack -> {
-            ItemEntity itemEntity = new ItemEntity(player.level(), player.position().x, player.position().y, player.position().z, stack);
-            player.level().addFreshEntity(itemEntity);
-        });
-    }
+            //ReleaseRewardsCommon.LOGGER.info("adding '{}'", stack.getItem().getName(stack));
+            boolean canFit = player.addItem(stack); //&& player.getInventory().getFreeSlot() != -1
+            //ReleaseRewardsCommon.LOGGER.info("item fits into inventory?: {}", canFit);
+            if(!canFit) {
+                //ReleaseRewardsCommon.LOGGER.info("player inventory is full, dropping item '{}' as entity", stack.getDisplayName());
+                ItemEntity itemEntity = new ItemEntity(player.level(), player.position().x, player.position().y, player.position().z, stack);
+                itemEntity.setPickUpDelay(40);
+                player.level().addFreshEntity(itemEntity);
+            }
 
-    private static HashMap<ElementalType, ResourceKey<LootTable>> typeListToResourceKeys() {
-        HashMap<ElementalType, ResourceKey<LootTable>> tableKeys = new HashMap<>();
-        ElementalTypes.INSTANCE.all().forEach(type ->
-                tableKeys.put(type, ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewardsCommon.MODID, "rewards/types/"+ type.getName())))
-        );
-        return tableKeys;
+        });
     }
 }
