@@ -37,13 +37,14 @@
             {
               "function": "set_count",
               "count": {
-                "min": 1,
+                "min": 4,
                 "max": 10
               }
             },
             {
               "function": "releaserewards:level_bonus",
-              "levels_per": 15
+              "levels_per": 10,
+              "count": 2
             }
           ]
         }

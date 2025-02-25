@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "empty",
-          "weight": 4
+          "weight": 2
         },
         {
           "type": "item",
@@ -18,7 +18,7 @@
               "value_type": "level",
               "range": {
                 "min": 1,
-                "max": 20
+                "max": 15
               }
             }
           ],
@@ -34,7 +34,7 @@
         },
         {
           "type": "item",
-          "weight": 3,
+          "weight": 4,
           "name": "cobblemon:exp_candy_s",
           "conditions": [
             {
@@ -131,7 +131,7 @@
         },
         {
           "type": "releaserewards:stats_weighted",
-          "weight": 8,
+          "weight": 6,
           "subset": "base",
           "items": {
             "hp": {"id": "cobblemon:health_feather"},
@@ -151,7 +151,7 @@
             },
             {
               "function": "releaserewards:level_bonus",
-              "levels_per": 8
+              "levels_per": 5
             }
           ]
         },
@@ -172,7 +172,7 @@
               "condition": "releaserewards:value_range",
               "value_type": "level",
               "range": {
-                "min": 60,
+                "min": 50,
                 "max": 100
               }
             }
@@ -187,7 +187,7 @@
             },
             {
               "function": "releaserewards:level_bonus",
-              "starting_at": 60,
+              "starting_at": 50,
               "levels_per": 25
             }
           ]
