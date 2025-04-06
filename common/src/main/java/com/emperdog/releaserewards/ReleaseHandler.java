@@ -13,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -46,14 +48,6 @@ public class ReleaseHandler {
         //get Global table
         LootTable globalTable = reloadableRegistries.getLootTable(GLOBAL_REWARD_TABLE);
 
-        //get Type tables for released mon's types
-        List<ResourceKey<LootTable>> typeTables = new ArrayList<ResourceKey<LootTable>>();
-        pokemon.getTypes().forEach(type -> typeTables.add(getTypeRewardTable(type)));
-        LootTable chosenTypeTable = reloadableRegistries.getLootTable(typeTables.get(new Random().nextInt(typeTables.size())));
-
-        //get Species table for released mon
-        LootTable speciesTable = reloadableRegistries.getLootTable(getSpeciesRewardTable(pokemon));
-
         //create LootContextParams for this context
         LootParams.Builder builder = new LootParams.Builder((ServerLevel) level);
         builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player);
@@ -61,8 +55,6 @@ public class ReleaseHandler {
         LootParams params = builder.create(ModLootContextParams.Set.PLAYER_AND_POKEMON);
 
         giveLootToPlayer(player, globalTable.getRandomItems(params));
-        giveLootToPlayer(player, chosenTypeTable.getRandomItems(params));
-        giveLootToPlayer(player, speciesTable.getRandomItems(params));
 
         return Unit.INSTANCE;
     }
@@ -76,8 +68,10 @@ public class ReleaseHandler {
     }
 
     public static ResourceKey<LootTable> getSpeciesRewardTable(Pokemon pokemon) {
-        ResourceLocation speciesLocation = pokemon.getSpecies().resourceIdentifier;
+        return getSpeciesRewardTable(pokemon.getSpecies().resourceIdentifier);
+    }
 
+    public static ResourceKey<LootTable> getSpeciesRewardTable(ResourceLocation speciesLocation) {
         // check for species table in storage
         if(STORED_SPECIES_REWARD_TABLES.containsKey(speciesLocation))
             return STORED_SPECIES_REWARD_TABLES.get(speciesLocation);
@@ -99,6 +93,9 @@ public class ReleaseHandler {
                 ItemEntity itemEntity = new ItemEntity(player.level(), player.position().x, player.position().y, player.position().z, stack);
                 itemEntity.setPickUpDelay(40);
                 player.level().addFreshEntity(itemEntity);
+            } else {
+                //TODO adjust sound levels
+                player.level().playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2f, 1.0f);
             }
 
         });
