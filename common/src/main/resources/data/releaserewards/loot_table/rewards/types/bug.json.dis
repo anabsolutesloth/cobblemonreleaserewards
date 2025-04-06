@@ -1,0 +1,21 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "name": "type_test",
+      "entries": [
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:emerald",
+          "conditions": [
+            {
+              "condition": "releaserewards:type",
+              "type": "dark"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

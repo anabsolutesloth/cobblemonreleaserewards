@@ -49,4 +49,7 @@ public class ModLootConditions {
 
     public static final Supplier<LootItemConditionType> POKEMON_PROPERTIES =
             LOOT_CONDITION_TYPES.register("pokemon_properties", () -> new LootItemConditionType(PokemonPropertiesCondition.CODEC));
+
+    public static final Supplier<LootItemConditionType> POKEMON_TYPE =
+            LOOT_CONDITION_TYPES.register("type", () -> new LootItemConditionType(PokemonTypeCondition.CODEC));
 }
