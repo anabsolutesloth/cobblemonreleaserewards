@@ -6,6 +6,7 @@ import com.cobblemon.mod.common.api.types.ElementalTypes;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.emperdog.releaserewards.loot.ReleaseUtils;
+import dev.architectury.hooks.item.ItemStackHooks;
 import kotlin.Unit;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -85,6 +86,8 @@ public class ReleaseHandler {
 
     public static void giveLootToPlayer(ServerPlayer player, List<ItemStack> loot) {
         loot.forEach(stack -> {
+            ItemStackHooks.giveItem(player, stack);
+            /*
             //ReleaseRewardsCommon.LOGGER.info("adding '{}'", stack.getItem().getName(stack));
             boolean canFit = player.addItem(stack); //&& player.getInventory().getFreeSlot() != -1
             //ReleaseRewardsCommon.LOGGER.info("item fits into inventory?: {}", canFit);
@@ -94,10 +97,9 @@ public class ReleaseHandler {
                 itemEntity.setPickUpDelay(40);
                 player.level().addFreshEntity(itemEntity);
             } else {
-                //TODO adjust sound levels
                 player.level().playSound(null, player.blockPosition(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2f, 1.0f);
             }
-
+             */
         });
     }
 }
