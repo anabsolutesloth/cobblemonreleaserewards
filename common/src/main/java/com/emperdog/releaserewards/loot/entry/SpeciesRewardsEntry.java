@@ -27,7 +27,7 @@ public class SpeciesRewardsEntry extends LootPoolSingletonContainer {
     public final ResourceLocation species;
 
     public static final MapCodec<SpeciesRewardsEntry> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            ResourceLocation.CODEC.optionalFieldOf("species", INVALID_SPECIES).forGetter(e -> e.species)) //TODO figure out how to make this assume cobblemon namespace if unspecified
+                    ReleaseRewardsCommon.CODEC_RESOURCELOCATION.optionalFieldOf("species",INVALID_SPECIES).forGetter(e -> e.species))
                 .and(singletonFields(inst)
             ).apply(inst, SpeciesRewardsEntry::new));
 
