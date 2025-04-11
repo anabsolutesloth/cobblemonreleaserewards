@@ -1,0 +1,14 @@
+{
+  "pools": [
+    {
+      "rolls": 20,
+      "name": "gimmighoul_rewards",
+      "entries": [
+        {
+          "type": "releaserewards:species_rewards",
+          "species": "cobblemon:gimmighoul"
+        }
+      ]
+    }
+  ]
+}

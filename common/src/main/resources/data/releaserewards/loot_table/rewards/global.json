@@ -20,6 +20,20 @@
     },
     {
       "rolls": 1,
+      "name": "global_rewards_pokemon_drops",
+      "entries": [
+        {
+          "type": "releaserewards:pokemon_drops",
+          "weight": 2
+        },
+        {
+          "type": "empty",
+          "weight": 3
+        }
+      ]
+    },
+    {
+      "rolls": 1,
       "name": "global_rewards",
       "entries": [
         {

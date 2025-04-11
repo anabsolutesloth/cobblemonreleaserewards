@@ -2,6 +2,7 @@ package com.emperdog.releaserewards.loot.entry;
 
 import com.cobblemon.mod.common.api.drop.DropEntry;
 import com.cobblemon.mod.common.pokemon.Pokemon;
+import com.emperdog.releaserewards.CobblemonHelperKt;
 import com.emperdog.releaserewards.ReleaseRewardsCommon;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.mojang.serialization.Codec;
@@ -28,14 +29,14 @@ public class PokemonDropsEntry extends LootPoolSingletonContainer {
     private final int maxAmount;
 
     public static final MapCodec<PokemonDropsEntry> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-            Codec.INT.optionalFieldOf("min_amount", 1).forGetter(e -> e.minAmount),
-            Codec.INT.optionalFieldOf("max_amount", 1).forGetter(e -> e.maxAmount))
+            Codec.INT.optionalFieldOf("min_amount", 0).forGetter(e -> e.minAmount),
+            Codec.INT.optionalFieldOf("max_amount", 0).forGetter(e -> e.maxAmount))
             .and(singletonFields(inst)).apply(inst, PokemonDropsEntry::new));
 
     protected PokemonDropsEntry(int minAmount, int maxAmount, int weight, int quality, List<LootItemCondition> conditions, List<LootItemFunction> functions) {
         super(weight, quality, conditions, functions);
         this.minAmount = minAmount;
-        this.maxAmount = maxAmount;
+        this.maxAmount = Math.max(maxAmount, minAmount);
     }
 
     @Override
@@ -45,9 +46,12 @@ public class PokemonDropsEntry extends LootPoolSingletonContainer {
         
         if(player instanceof ServerPlayer serverPlayer) {
 
-            List<DropEntry> drops = pokemon.getForm().getDrops().getDrops(new IntRange(minAmount, maxAmount), pokemon);
+            //providing an IntRange is funky as shit, so we only do it if amounts are specified.
+            List<DropEntry> drops = maxAmount > 0 ?
+                    pokemon.getForm().getDrops().getDrops(new IntRange(minAmount, maxAmount), pokemon)
+                    : CobblemonHelperKt.Companion.getPokemonDrops(pokemon);
 
-            drops.forEach(drop -> drop.drop(serverPlayer, serverPlayer.serverLevel(), serverPlayer.position(), serverPlayer));
+            drops.forEach(drop -> drop.drop(null, serverPlayer.serverLevel(), serverPlayer.position(), serverPlayer));
         } else {
             ReleaseRewardsCommon.LOGGER.warn("Player '{}' is not instanceof ServerPlayer, PokemonDropsEntry for {} cannot be created.", player.getName(), pokemon.getSpecies().resourceIdentifier);
         }
