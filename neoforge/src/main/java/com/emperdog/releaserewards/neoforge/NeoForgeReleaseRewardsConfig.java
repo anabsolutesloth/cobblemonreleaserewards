@@ -1,13 +1,13 @@
 package com.emperdog.releaserewards.neoforge;
 
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
+import com.emperdog.releaserewards.ReleaseRewards;
 import com.emperdog.releaserewards.services.ReleaseRewardsConfig;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.EventBusSubscriber;
 import net.neoforged.fml.event.config.ModConfigEvent;
 import net.neoforged.neoforge.common.ModConfigSpec;
 
-@EventBusSubscriber(modid = ReleaseRewardsCommon.MODID, bus = EventBusSubscriber.Bus.MOD)
+@EventBusSubscriber(modid = ReleaseRewards.MODID, bus = EventBusSubscriber.Bus.MOD)
 public class NeoForgeReleaseRewardsConfig implements ReleaseRewardsConfig {
 
     private static final ModConfigSpec.Builder BUILDER = new ModConfigSpec.Builder();

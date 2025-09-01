@@ -2,7 +2,7 @@ package com.emperdog.releaserewards.loot.conditions;
 
 import com.cobblemon.mod.common.pokemon.Gender;
 import com.cobblemon.mod.common.pokemon.Pokemon;
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
+import com.emperdog.releaserewards.ReleaseRewards;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -19,7 +19,7 @@ public record PokemonGenderCondition(String gender) implements LootItemCondition
 
     @Override
     public LootItemConditionType getType() {
-        return ModLootConditions.POKEMON_GENDER.get();
+        return ModLootConditions.POKEMON_GENDER;
     }
 
     @Override
@@ -34,7 +34,7 @@ public record PokemonGenderCondition(String gender) implements LootItemCondition
             case "f", "female" -> Gender.FEMALE;
             case "n", "none", "genderless" -> Gender.GENDERLESS;
             default -> {
-                ReleaseRewardsCommon.LOGGER.warn("pokemon_gender condition with Gender '{}' does not reference a valid gender.", gender);
+                ReleaseRewards.LOGGER.warn("pokemon_gender condition with Gender '{}' does not reference a valid gender.", gender);
                 yield Gender.GENDERLESS;
             }
         };

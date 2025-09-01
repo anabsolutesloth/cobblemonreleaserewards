@@ -5,7 +5,6 @@ import com.cobblemon.mod.common.api.pokemon.PokemonSpecies;
 import com.cobblemon.mod.common.api.pokemon.evolution.Evolution;
 import com.cobblemon.mod.common.api.pokemon.evolution.PreEvolution;
 import com.cobblemon.mod.common.pokemon.Pokemon;
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.emperdog.releaserewards.services.Services;
 import com.mojang.serialization.Codec;
@@ -30,7 +29,7 @@ public record EvolutionStageCondition(List<Integer> stages, boolean invert) impl
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.EVOLUTION_STAGE.get();
+        return ModLootConditions.EVOLUTION_STAGE;
     }
 
     @Override

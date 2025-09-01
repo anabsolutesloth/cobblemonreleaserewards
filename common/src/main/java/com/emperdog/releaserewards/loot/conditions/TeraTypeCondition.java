@@ -22,7 +22,7 @@ public record TeraTypeCondition(List<TeraType> teraTypes, boolean invert) implem
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.TERA_TYPE.get();
+        return ModLootConditions.TERA_TYPE;
     }
 
     @Override

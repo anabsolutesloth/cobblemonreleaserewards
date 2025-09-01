@@ -4,7 +4,7 @@ import com.cobblemon.mod.common.api.pokemon.stats.Stat;
 import com.cobblemon.mod.common.api.pokemon.stats.Stats;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.emperdog.releaserewards.EnumPokemonStats;
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
+import com.emperdog.releaserewards.ReleaseRewards;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.emperdog.releaserewards.loot.ReleaseUtils;
 import com.mojang.serialization.Codec;
@@ -70,7 +70,7 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
 
         int size = stacks.size();
         if(size == 1) {
-            return stacks.get(0);
+            return stacks.getFirst();
         } else if(totalWeight.intValue() != 0 && size != 0) {
             int weight = random.nextInt(totalWeight.intValue());
 
@@ -82,7 +82,7 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
             }
         }
 
-        ReleaseRewardsCommon.LOGGER.warn("A StatsWeightedItemEntry '{}' was invalid, returning Empty Stack.", options.toString());
+        ReleaseRewards.LOGGER.warn("A StatsWeightedItemEntry '{}' was invalid, returning Empty Stack.", options.toString());
         return ItemStack.EMPTY;
     }
 
@@ -100,6 +100,6 @@ public class StatsWeightedItemEntry extends LootPoolSingletonContainer {
 
     @Override
     public @NotNull LootPoolEntryType getType() {
-        return ModLootEntries.STATS_WEIGHTED.get();
+        return ModLootEntries.STATS_WEIGHTED;
     }
 }

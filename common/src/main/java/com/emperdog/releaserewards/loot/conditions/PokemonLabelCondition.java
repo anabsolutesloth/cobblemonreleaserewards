@@ -24,7 +24,7 @@ public record PokemonLabelCondition(List<String> labels, boolean invert) impleme
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.POKEMON_LABEL.get();
+        return ModLootConditions.POKEMON_LABEL;
     }
 
     @Override

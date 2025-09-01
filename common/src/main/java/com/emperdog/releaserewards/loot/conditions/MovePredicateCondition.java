@@ -2,7 +2,7 @@ package com.emperdog.releaserewards.loot.conditions;
 
 import com.cobblemon.mod.common.api.moves.MoveTemplate;
 import com.cobblemon.mod.common.pokemon.Pokemon;
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
+import com.emperdog.releaserewards.ReleaseRewards;
 import com.emperdog.releaserewards.data.MovePredicate;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.emperdog.releaserewards.loot.ReleaseUtils;
@@ -31,7 +31,7 @@ public record MovePredicateCondition(MovePredicate move, String powerCalc, Strin
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.MOVE_PREDICATE.get();
+        return ModLootConditions.MOVE_PREDICATE;
     }
 
     @Override
@@ -135,7 +135,7 @@ public record MovePredicateCondition(MovePredicate move, String powerCalc, Strin
                 case "==":
                     return knownMoveValue == moveValue;
                 default:
-                    ReleaseRewardsCommon.LOGGER.warn("MovePredicateCondition with move '{}' has invalid calc type '{}'", move, calcType);
+                    ReleaseRewards.LOGGER.warn("MovePredicateCondition with move '{}' has invalid calc type '{}'", move, calcType);
                     break;
             }
         return false;

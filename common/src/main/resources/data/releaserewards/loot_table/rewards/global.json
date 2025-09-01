@@ -1,4 +1,5 @@
 {
+  "type": "releaserewards:player_and_pokemon",
   "pools": [
     {
       "rolls": 1,

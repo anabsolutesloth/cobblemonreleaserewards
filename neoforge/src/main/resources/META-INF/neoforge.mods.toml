@@ -14,6 +14,8 @@ description = '''${mod_description}'''
 # logo file optional
 logoFile = "assets/releaserewards/${mod_id}_icon.png"
 
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
 
 [[dependencies.${mod_id}]]
 modId = "neoforge"
@@ -29,11 +31,6 @@ versionRange = "[${forge_kotlin_version},)"
 modId = "minecraft"
 mandatory = true
 versionRange = "[${minecraft_version}]"
-
-[[dependencies.${mod_id}]]
-modId = "architectury"
-mandatory = true
-versionRange = "[${architectury_version},)"
 
 [[dependencies.${mod_id}]]
 modId = "cobblemon"

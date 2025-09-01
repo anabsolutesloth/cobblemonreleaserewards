@@ -2,7 +2,7 @@ package com.emperdog.releaserewards.loot.entry;
 
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.emperdog.releaserewards.ReleaseHandler;
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
+import com.emperdog.releaserewards.ReleaseRewards;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -22,12 +22,12 @@ import java.util.function.Consumer;
 
 public class SpeciesRewardsEntry extends LootPoolSingletonContainer {
 
-    private static final ResourceLocation INVALID_SPECIES = ResourceLocation.fromNamespaceAndPath(ReleaseRewardsCommon.MODID, "not_real_pokemon");
+    private static final ResourceLocation INVALID_SPECIES = ReleaseRewards.resource("not_real_pokemon");
 
     public final ResourceLocation species;
 
     public static final MapCodec<SpeciesRewardsEntry> CODEC = RecordCodecBuilder.mapCodec(inst -> inst.group(
-                    ReleaseRewardsCommon.CODEC_RESOURCELOCATION.optionalFieldOf("species",INVALID_SPECIES).forGetter(e -> e.species))
+                    ReleaseRewards.CODEC_RESOURCELOCATION.optionalFieldOf("species",INVALID_SPECIES).forGetter(e -> e.species))
                 .and(singletonFields(inst)
             ).apply(inst, SpeciesRewardsEntry::new));
 
@@ -52,6 +52,6 @@ public class SpeciesRewardsEntry extends LootPoolSingletonContainer {
 
     @Override
     public LootPoolEntryType getType() {
-        return ModLootEntries.SPECIES_REWARDS.get();
+        return ModLootEntries.SPECIES_REWARDS;
     }
 }

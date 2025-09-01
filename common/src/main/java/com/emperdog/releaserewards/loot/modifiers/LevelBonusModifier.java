@@ -46,6 +46,6 @@ public class LevelBonusModifier extends LootItemConditionalFunction {
 
     @Override
     public LootItemFunctionType<? extends LootItemConditionalFunction> getType() {
-        return ModLootModifiers.LEVEL_BONUS.get();
+        return ModLootFunctions.LEVEL_BONUS;
     }
 }

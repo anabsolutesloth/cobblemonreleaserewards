@@ -18,7 +18,7 @@ public record GmaxFactorCondition(boolean gmax) implements LootItemCondition {
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.GMAX_FACTOR.get();
+        return ModLootConditions.GMAX_FACTOR;
     }
 
     @Override

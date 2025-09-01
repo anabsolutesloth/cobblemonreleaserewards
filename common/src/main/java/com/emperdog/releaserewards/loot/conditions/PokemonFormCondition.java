@@ -25,7 +25,7 @@ public record PokemonFormCondition(List<String> aspects, boolean invert) impleme
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.POKEMON_FORM.get();
+        return ModLootConditions.POKEMON_FORM;
     }
 
     @Override

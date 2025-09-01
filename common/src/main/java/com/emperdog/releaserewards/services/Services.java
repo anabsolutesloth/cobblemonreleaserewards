@@ -1,6 +1,6 @@
 package com.emperdog.releaserewards.services;
 
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
+import com.emperdog.releaserewards.ReleaseRewards;
 
 import java.util.ServiceLoader;
 
@@ -13,7 +13,7 @@ public class Services {
         final T loadedService = ServiceLoader.load(clazz)
                 .findFirst()
                 .orElseThrow(() -> new NullPointerException("Failed to load service for " + clazz.getName()));
-        ReleaseRewardsCommon.LOGGER.debug("Loaded {} for service {}", loadedService, clazz);
+        ReleaseRewards.LOGGER.debug("Loaded {} for service {}", loadedService, clazz);
         return loadedService;
     }
 }

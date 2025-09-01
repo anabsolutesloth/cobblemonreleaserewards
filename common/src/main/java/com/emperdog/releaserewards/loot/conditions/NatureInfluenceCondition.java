@@ -24,7 +24,7 @@ public record NatureInfluenceCondition(String influencedStat, boolean positive) 
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.NATURE_INFLUENCE.get();
+        return ModLootConditions.NATURE_INFLUENCE;
     }
 
     @Override

@@ -3,7 +3,7 @@ package com.emperdog.releaserewards.loot.entry;
 import com.cobblemon.mod.common.api.drop.DropEntry;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.emperdog.releaserewards.CobblemonHelperKt;
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
+import com.emperdog.releaserewards.ReleaseRewards;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -53,12 +53,12 @@ public class PokemonDropsEntry extends LootPoolSingletonContainer {
 
             drops.forEach(drop -> drop.drop(null, serverPlayer.serverLevel(), serverPlayer.position(), serverPlayer));
         } else {
-            ReleaseRewardsCommon.LOGGER.warn("Player '{}' is not instanceof ServerPlayer, PokemonDropsEntry for {} cannot be created.", player.getName(), pokemon.getSpecies().resourceIdentifier);
+            ReleaseRewards.LOGGER.warn("Player '{}' is not instanceof ServerPlayer, PokemonDropsEntry for {} cannot be created.", player.getName(), pokemon.getSpecies().resourceIdentifier);
         }
     }
 
     @Override
     public @NotNull LootPoolEntryType getType() {
-        return ModLootEntries.POKEMON_DROPS.get();
+        return ModLootEntries.POKEMON_DROPS;
     }
 }

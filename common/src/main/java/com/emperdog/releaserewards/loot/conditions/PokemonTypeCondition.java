@@ -19,7 +19,7 @@ public record PokemonTypeCondition(ElementalType type, boolean invert) implement
 
     @Override
     public LootItemConditionType getType() {
-        return ModLootConditions.POKEMON_TYPE.get();
+        return ModLootConditions.POKEMON_TYPE;
     }
 
     @Override

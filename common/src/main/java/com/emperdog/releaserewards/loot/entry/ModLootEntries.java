@@ -1,25 +1,45 @@
 package com.emperdog.releaserewards.loot.entry;
 
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
-import dev.architectury.registry.registries.DeferredRegister;
+import com.cobblemon.mod.common.platform.PlatformRegistry;
+import com.emperdog.releaserewards.ReleaseRewards;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.storage.loot.entries.LootPoolEntryType;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.function.Supplier;
+public class ModLootEntries extends PlatformRegistry<Registry<LootPoolEntryType>, ResourceKey<Registry<LootPoolEntryType>>, LootPoolEntryType> {
 
-public class ModLootEntries {
-    public static final DeferredRegister<LootPoolEntryType> LOOT_POOL_ENTRY_TYPES =
-            DeferredRegister.create(ReleaseRewardsCommon.MODID, Registries.LOOT_POOL_ENTRY_TYPE);
+    public static final ModLootEntries INSTANCE = new ModLootEntries();
 
-    public static final Supplier<LootPoolEntryType> STATS_WEIGHTED =
-            LOOT_POOL_ENTRY_TYPES.register("stats_weighted", () -> new LootPoolEntryType(StatsWeightedItemEntry.CODEC));
+    private ModLootEntries() {}
 
-    public static final Supplier<LootPoolEntryType> POKEMON_DROPS =
-            LOOT_POOL_ENTRY_TYPES.register("pokemon_drops", () -> new LootPoolEntryType(PokemonDropsEntry.CODEC));
+    public static final LootPoolEntryType STATS_WEIGHTED =
+            INSTANCE.create("stats_weighted", new LootPoolEntryType(StatsWeightedItemEntry.CODEC));
 
-    public static final Supplier<LootPoolEntryType> TYPE_REWARDS =
-            LOOT_POOL_ENTRY_TYPES.register("type_rewards", () -> new LootPoolEntryType(TypeRewardsEntry.CODEC));
+    public static final LootPoolEntryType POKEMON_DROPS =
+            INSTANCE.create("pokemon_drops", new LootPoolEntryType(PokemonDropsEntry.CODEC));
 
-    public static final Supplier<LootPoolEntryType> SPECIES_REWARDS =
-            LOOT_POOL_ENTRY_TYPES.register("species_rewards", () -> new LootPoolEntryType(SpeciesRewardsEntry.CODEC));
+    public static final LootPoolEntryType TYPE_REWARDS =
+            INSTANCE.create("type_rewards", new LootPoolEntryType(TypeRewardsEntry.CODEC));
+
+    public static final LootPoolEntryType SPECIES_REWARDS =
+            INSTANCE.create("species_rewards", new LootPoolEntryType(SpeciesRewardsEntry.CODEC));
+
+
+    @Override
+    public <E extends LootPoolEntryType> E create(@NotNull String name, E entry) {
+        return super.create(ReleaseRewards.resource(name), entry);
+    }
+
+    @Override
+    public @NotNull Registry<LootPoolEntryType> getRegistry() {
+        return BuiltInRegistries.LOOT_POOL_ENTRY_TYPE;
+    }
+
+    @Override
+    public @NotNull ResourceKey<Registry<LootPoolEntryType>> getResourceKey() {
+        return Registries.LOOT_POOL_ENTRY_TYPE;
+    }
 }

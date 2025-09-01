@@ -12,7 +12,7 @@ dependencies {
     implementation(libs.kotlin.reflect)
     implementation(libs.kotlin.json)
 
-    modApi(libs.architectury)
+    //modApi(libs.architectury)
 
     modImplementation(libs.fabric.loader)
 

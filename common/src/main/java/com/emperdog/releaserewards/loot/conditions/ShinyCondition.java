@@ -18,7 +18,7 @@ public record ShinyCondition(boolean invert) implements LootItemCondition {
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.SHINY.get();
+        return ModLootConditions.SHINY;
     }
 
     @Override

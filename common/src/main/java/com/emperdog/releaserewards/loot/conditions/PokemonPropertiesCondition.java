@@ -3,7 +3,6 @@ package com.emperdog.releaserewards.loot.conditions;
 import com.cobblemon.mod.common.api.pokemon.PokemonProperties;
 import com.cobblemon.mod.common.api.pokemon.PokemonPropertyExtractor;
 import com.cobblemon.mod.common.pokemon.Pokemon;
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -22,7 +21,7 @@ public record PokemonPropertiesCondition(String propertiesString, boolean invert
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.POKEMON_PROPERTIES.get();
+        return ModLootConditions.POKEMON_PROPERTIES;
     }
 
     @Override

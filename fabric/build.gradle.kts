@@ -17,7 +17,7 @@ dependencies {
     "developmentFabric"(project(":common", configuration = "namedElements")) { isTransitive = false }
     bundle(project(":common", configuration = "transformProductionFabric")) { isTransitive = false }
 
-    modApi(libs.architectury.fabric)
+    //modApi(libs.architectury.fabric)
 
     modImplementation(libs.fabric.loader)
     modApi(libs.fabric.api)

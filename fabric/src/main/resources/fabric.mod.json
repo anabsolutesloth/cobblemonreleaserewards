@@ -14,6 +14,7 @@
   },
   "license": "${mod_license}",
   "environment": "*",
+  "accessWidener": "releaserewards.accesswidener",
   "entrypoints": {
     "main": [
       "com.emperdog.releaserewards.fabric.ReleaseRewardsFabricMod"
@@ -24,7 +25,6 @@
     "fabric-api": "*",
     "minecraft": "${minecraft_version}",
     "java": ">=21",
-    "architectury": "${architectury_version}.x",
     "cobblemon": ">=${cobblemon_version}"
   }
 }

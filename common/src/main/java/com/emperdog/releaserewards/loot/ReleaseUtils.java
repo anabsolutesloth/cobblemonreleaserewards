@@ -9,7 +9,7 @@ import com.cobblemon.mod.common.api.types.ElementalType;
 import com.cobblemon.mod.common.battles.MoveTarget;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.cobblemon.mod.common.pokemon.abilities.HiddenAbility;
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
+import com.emperdog.releaserewards.ReleaseRewards;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +20,7 @@ import java.util.Map;
 public class ReleaseUtils {
 
     public static final ElementalType EMPTY_TYPE =
-            new ElementalType("bird", Component.empty(), 0, 0, ResourceLocation.fromNamespaceAndPath(ReleaseRewardsCommon.MODID, "empty"));
+            new ElementalType("bird", Component.empty(), 0, 0, ReleaseRewards.resource("empty"));
     /*
         Returns the specified Stat Subset of a Pokémon as a Map.
         can return an Empty map.
@@ -44,7 +44,7 @@ public class ReleaseUtils {
                 Stats.Companion.getPERMANENT().forEach(thisStat -> statStore.put(thisStat, pokemon.getStat(thisStat)));
                 return statStore;
             default:
-                ReleaseRewardsCommon.LOGGER.warn("Stat Subset name '{}' is invalid or Empty, returning an empty Subset.", subset);
+                ReleaseRewards.LOGGER.warn("Stat Subset name '{}' is invalid or Empty, returning an empty Subset.", subset);
                 return new HashMap<>();
         }
     }
@@ -80,7 +80,7 @@ public class ReleaseUtils {
     }
 
     public static ResourceLocation getSpeciesTableLocation(ResourceLocation speciesLocation) {
-        return ResourceLocation.fromNamespaceAndPath(ReleaseRewardsCommon.MODID, "rewards/species/"+ speciesLocation.getNamespace() +"/"+ speciesLocation.getPath());
+        return ReleaseRewards.resource("rewards/species/"+ speciesLocation.getNamespace() +"/"+ speciesLocation.getPath());
     }
 
     public static DamageCategory getDamageCategoryFromAlias(String category) {

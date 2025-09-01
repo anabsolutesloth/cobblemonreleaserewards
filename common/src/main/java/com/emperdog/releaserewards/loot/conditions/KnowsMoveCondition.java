@@ -24,7 +24,7 @@ public record KnowsMoveCondition(List<String> moves, boolean invert) implements 
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.KNOWS_MOVE.get();
+        return ModLootConditions.KNOWS_MOVE;
     }
 
     @Override

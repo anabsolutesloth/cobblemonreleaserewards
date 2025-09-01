@@ -1,6 +1,6 @@
 package com.emperdog.releaserewards.fabric;
 
-import com.emperdog.releaserewards.ReleaseRewardsCommon;
+import com.emperdog.releaserewards.ReleaseRewards;
 import com.emperdog.releaserewards.services.ReleaseRewardsConfig;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -57,7 +57,7 @@ public class FabricReleaseRewardsConfig implements ReleaseRewardsConfig {
 
     private static Path getConfigFilePath() {
         if(configFilePath == null)
-            configFilePath = FabricLoader.getInstance().getConfigDir().resolve(ReleaseRewardsCommon.MODID + ".json");
+            configFilePath = FabricLoader.getInstance().getConfigDir().resolve(ReleaseRewards.MODID + ".json");
         return configFilePath;
     }
 

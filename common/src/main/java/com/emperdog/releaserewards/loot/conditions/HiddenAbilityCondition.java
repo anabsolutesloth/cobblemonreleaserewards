@@ -19,7 +19,7 @@ public record HiddenAbilityCondition(boolean hiddenAbility) implements LootItemC
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.HIDDEN_ABILITY.get();
+        return ModLootConditions.HIDDEN_ABILITY;
     }
 
     @Override

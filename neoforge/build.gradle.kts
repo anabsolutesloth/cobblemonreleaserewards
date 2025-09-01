@@ -11,11 +11,14 @@ repositories {
     maven("https://thedarkcolour.github.io/KotlinForForge/")
 }
 
+
+//accessTransformer = file("src/main/resources/META-INF/accesstransformer.cfg")
+
 dependencies {
     "developmentNeoForge"(project(":common", configuration = "namedElements")) { isTransitive = false }
     bundle(project(":common", configuration = "transformProductionNeoForge")) { isTransitive = false }
 
-    modApi(libs.architectury.neoforge)
+    //modApi(libs.architectury.neoforge)
 
     neoForge(libs.neoforge.loader)
     implementation(libs.neoforge.kotlin) {

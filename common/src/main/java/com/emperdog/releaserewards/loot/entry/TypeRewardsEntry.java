@@ -57,6 +57,6 @@ public class TypeRewardsEntry extends LootPoolSingletonContainer {
 
     @Override
     public LootPoolEntryType getType() {
-        return ModLootEntries.TYPE_REWARDS.get();
+        return ModLootEntries.TYPE_REWARDS;
     }
 }

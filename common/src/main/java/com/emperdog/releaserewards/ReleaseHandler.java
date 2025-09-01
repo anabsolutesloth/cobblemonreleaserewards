@@ -6,7 +6,6 @@ import com.cobblemon.mod.common.api.types.ElementalTypes;
 import com.cobblemon.mod.common.pokemon.Pokemon;
 import com.emperdog.releaserewards.loot.ModLootContextParams;
 import com.emperdog.releaserewards.loot.ReleaseUtils;
-import dev.architectury.hooks.item.ItemStackHooks;
 import kotlin.Unit;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
@@ -14,6 +13,8 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.ReloadableServerRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.storage.loot.LootParams;
@@ -25,13 +26,13 @@ import java.util.stream.Collectors;
 
 public class ReleaseHandler {
     // global Reward Table
-    public static final ResourceKey<LootTable> GLOBAL_REWARD_TABLE = ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewardsCommon.MODID, "rewards/global"));
+    public static final ResourceKey<LootTable> GLOBAL_REWARD_TABLE = ResourceKey.create(Registries.LOOT_TABLE, ReleaseRewards.resource("rewards/global"));
 
     // full list of Type tables mapped to corresponding ElementalType
     public static final Map<ElementalType, ResourceKey<LootTable>> TYPE_REWARD_TABLES = ElementalTypes.INSTANCE.all().stream()
             .collect(Collectors.toMap(
                     type -> type,
-                    type -> ResourceKey.create(Registries.LOOT_TABLE, ResourceLocation.fromNamespaceAndPath(ReleaseRewardsCommon.MODID, "rewards/types/" + type.getName()))
+                    type -> ResourceKey.create(Registries.LOOT_TABLE, ReleaseRewards.resource("rewards/types/" + type.getName()))
             ));
 
     // stores generated species table ResourceKeys because expendive to create (supposedly)
@@ -50,7 +51,7 @@ public class ReleaseHandler {
         LootParams.Builder builder = new LootParams.Builder((ServerLevel) level);
         builder.withParameter(LootContextParams.LAST_DAMAGE_PLAYER, player);
         builder.withParameter(ModLootContextParams.POKEMON, pokemon);
-        LootParams params = builder.create(ModLootContextParams.Set.PLAYER_AND_POKEMON);
+        LootParams params = builder.create(ModLootContextParams.Sets.PLAYER_AND_POKEMON);
 
         giveLootToPlayer(player, globalTable.getRandomItems(params));
 
@@ -83,7 +84,24 @@ public class ReleaseHandler {
 
     public static void giveLootToPlayer(ServerPlayer player, List<ItemStack> loot) {
         loot.forEach(stack -> {
-            ItemStackHooks.giveItem(player, stack);
+            //"borrowed" from Architectury's ItemStackHooks#giveItem
+            var bl = player.getInventory().add(stack);
+            if (bl && stack.isEmpty()) {
+                stack.setCount(1);
+                var entity = player.drop(stack, false);
+                if (entity != null) {
+                    entity.makeFakeItem();
+                }
+
+                player.level().playSound(null, player.getX(), player.getY(), player.getZ(), SoundEvents.ITEM_PICKUP, SoundSource.PLAYERS, 0.2F, ((player.getRandom().nextFloat() - player.getRandom().nextFloat()) * 0.7F + 1.0F) * 2.0F);
+                player.inventoryMenu.broadcastChanges();
+            } else {
+                var entity = player.drop(stack, false);
+                if (entity != null) {
+                    entity.setNoPickUpDelay();
+                    entity.setTarget(player.getUUID());
+                }
+            }
             /*
             //ReleaseRewardsCommon.LOGGER.info("adding '{}'", stack.getItem().getName(stack));
             boolean canFit = player.addItem(stack); //&& player.getInventory().getFreeSlot() != -1

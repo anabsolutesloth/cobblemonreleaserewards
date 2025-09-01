@@ -40,6 +40,7 @@ loom {
         useLegacyMixinAp.set(true)
         defaultRefmapName.set("cobblemonreleaserewards-${project.name}-refmap.json")
     }
+    accessWidenerPath = file(rootDir.path +"/common/src/main/resources/releaserewards.accesswidener")
 }
 
 dependencies {

@@ -27,7 +27,7 @@ public record PokemonValueRangeCondition(int min, int max, String valueType) imp
 
     @Override
     public @NotNull LootItemConditionType getType() {
-        return ModLootConditions.POKEMON_VALUE_RANGE.get();
+        return ModLootConditions.POKEMON_VALUE_RANGE;
     }
 
     @Override
@@ -56,7 +56,7 @@ public record PokemonValueRangeCondition(int min, int max, String valueType) imp
                     forStat = true;
                 value = 0.0;
             }
-        };
+        }
 
         if(!forStat) return value;
 
