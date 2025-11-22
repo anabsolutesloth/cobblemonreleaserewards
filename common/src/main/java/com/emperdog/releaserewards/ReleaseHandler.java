@@ -32,7 +32,7 @@ public class ReleaseHandler {
     public static final Map<ElementalType, ResourceKey<LootTable>> TYPE_REWARD_TABLES = ElementalTypes.INSTANCE.all().stream()
             .collect(Collectors.toMap(
                     type -> type,
-                    type -> ResourceKey.create(Registries.LOOT_TABLE, ReleaseRewards.resource("rewards/types/" + type.getName()))
+                    type -> ResourceKey.create(Registries.LOOT_TABLE, ReleaseRewards.resource("rewards/types/" + type.getShowdownId()))
             ));
 
     // stores generated species table ResourceKeys because expendive to create (supposedly)

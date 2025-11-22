@@ -20,7 +20,7 @@ import java.util.Map;
 public class ReleaseUtils {
 
     public static final ElementalType EMPTY_TYPE =
-            new ElementalType("bird", Component.empty(), 0, 0, ReleaseRewards.resource("empty"));
+            new ElementalType("bird", Component.empty(), 0, 0, ReleaseRewards.resource("empty"), "bird");
     /*
         Returns the specified Stat Subset of a Pokémon as a Map.
         can return an Empty map.
